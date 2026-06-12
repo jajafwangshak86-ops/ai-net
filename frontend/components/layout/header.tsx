@@ -3,9 +3,9 @@
 import { Search, Menu } from "lucide-react";
 import { WalletConnect } from "./wallet-connect";
 
-interface HeaderProps { onMenuClick: () => void; }
+interface HeaderProps { onMenuClick: () => void; isMiniPay?: boolean; }
 
-export function Header({ onMenuClick }: HeaderProps) {
+export function Header({ onMenuClick, isMiniPay }: HeaderProps) {
   return (
     <header className="h-14 flex items-center gap-3 px-4 md:px-6 flex-shrink-0 border-b border-white/[0.06] sticky top-0 z-30"
       style={{ background: "rgba(7,7,15,0.9)", backdropFilter: "blur(20px)" }}>

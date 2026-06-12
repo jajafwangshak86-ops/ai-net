@@ -23,7 +23,7 @@ export function Header({ onMenuClick }: HeaderProps) {
       <div className="flex items-center gap-2.5 ml-auto">
         <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-green-500/10 border border-green-500/20">
           <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-          <span className="text-xs font-medium text-green-400">Celo Alfajores</span>
+          <span className="text-xs font-medium text-green-400">Celo Mainnet</span>
         </div>
         <div className="hidden md:block h-4 w-px bg-white/10" />
         <WalletConnect />

@@ -88,11 +88,11 @@ export function TaskCreator({ onTaskComplete }: Props) {
       // ── Send createTask via Privy wallet ──
       const wallet = wallets.find(w => w.address.toLowerCase() === address.toLowerCase()) ?? wallets[0];
       if (!wallet) throw new Error("No wallet found. Please reconnect.");
-      await wallet.switchChain(44787);
+      await wallet.switchChain(42220);
       const provider = await wallet.getEthereumProvider();
       const viemWallet = createWalletClient({ account: address as `0x${string}`, transport: custom(provider) });
       const txHash = await viemWallet.sendTransaction({
-        chain: { id: 44787, name: "Celo Alfajores", nativeCurrency: { name: "Celo", symbol: "CELO", decimals: 18 }, rpcUrls: { default: { http: ["https://alfajores-forno.celo-testnet.org"] } } },
+        chain: { id: 42220, name: "Celo Mainnet", nativeCurrency: { name: "Celo", symbol: "CELO", decimals: 18 }, rpcUrls: { default: { http: ["https://forno.celo.org"] } } },
         to:    CONTRACTS.TASK_COORDINATOR,
         data:  encodeFunctionData({ abi: CREATE_TASK_ABI, functionName: "createTask", args: [description, BigInt(7 * 24 * 60 * 60)] }),
         value: BigInt("8000000000000000"),
@@ -204,7 +204,7 @@ export function TaskCreator({ onTaskComplete }: Props) {
         <div className="flex items-center gap-2 text-xs text-zinc-400">
           <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
           Smart Account tx confirmed:
-          <a href={`https://alfajores.celoscan.io/tx/${onChainTx}`} target="_blank" rel="noreferrer" className="text-cyan-400 hover:underline font-mono">{onChainTx.slice(0, 18)}…</a>
+          <a href={`https://celoscan.io/tx/${onChainTx}`} target="_blank" rel="noreferrer" className="text-cyan-400 hover:underline font-mono">{onChainTx.slice(0, 18)}…</a>
         </div>
       )}
 
@@ -231,7 +231,7 @@ export function TaskCreator({ onTaskComplete }: Props) {
           <div className="flex items-center gap-3 flex-wrap">
             <div className="flex items-center gap-2 text-green-400"><CheckCircle className="w-5 h-5" /><span className="text-sm font-medium">Task #{result.taskId} completed</span></div>
             <span className="text-xs text-zinc-500">{result.agentsHired.length} agents · {result.txHashes.length} txs</span>
-            <a href={`https://alfajores.celoscan.io/tx/${result.txHashes[0]}`} target="_blank" rel="noreferrer" className="text-xs text-cyan-400 hover:underline">Celoscan →</a>
+            <a href={`https://celoscan.io/tx/${result.txHashes[0]}`} target="_blank" rel="noreferrer" className="text-xs text-cyan-400 hover:underline">Celoscan →</a>
           </div>
 
           {(["research","riskAnalysis","coding","design","audit","report"] as const).map(key => {

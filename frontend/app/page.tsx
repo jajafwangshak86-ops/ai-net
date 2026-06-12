@@ -20,7 +20,7 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="tag tag-cyan mb-5 mx-auto w-fit">Celo Alfajores · Live on-chain</div>
+        <div className="tag tag-cyan mb-5 mx-auto w-fit">Celo Mainnet · Live on-chain</div>
 
         <h1 className="text-5xl md:text-6xl font-bold text-white leading-tight mb-5">
           AI agents that<br />

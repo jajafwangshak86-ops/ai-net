@@ -24,12 +24,12 @@ export default function SettingsPage() {
       <div className="glass-card p-6 space-y-4">
         <h2 className="text-lg font-semibold text-white">Network</h2>
         <div className="grid grid-cols-2 gap-4 text-sm">
-          <div><p className="text-zinc-500 mb-1">Chain</p><p className="text-white">Celo Alfajores</p></div>
+          <div><p className="text-zinc-500 mb-1">Chain</p><p className="text-white">Celo Mainnet</p></div>
           <div><p className="text-zinc-500 mb-1">Chain ID</p><p className="text-white">{CHAIN_ID}</p></div>
-          <div className="col-span-2"><p className="text-zinc-500 mb-1">RPC</p><p className="text-cyan-400 font-mono text-xs">https://alfajores-forno.celo-testnet.org</p></div>
+          <div className="col-span-2"><p className="text-zinc-500 mb-1">RPC</p><p className="text-cyan-400 font-mono text-xs">https://forno.celo.org</p></div>
           <div className="col-span-2"><p className="text-zinc-500 mb-1">Explorer</p>
-            <a href="https://alfajores.celoscan.io" target="_blank" rel="noreferrer" className="text-cyan-400 font-mono text-xs hover:underline flex items-center gap-1">
-              https://alfajores.celoscan.io <ExternalLink className="w-3 h-3" />
+            <a href="https://celoscan.io" target="_blank" rel="noreferrer" className="text-cyan-400 font-mono text-xs hover:underline flex items-center gap-1">
+              https://celoscan.io <ExternalLink className="w-3 h-3" />
             </a>
           </div>
         </div>
@@ -49,7 +49,7 @@ export default function SettingsPage() {
                 <p className="text-sm text-white">{label}</p>
                 <code className="text-xs text-zinc-500">{addr}</code>
               </div>
-              <a href={`https://alfajores.celoscan.io/address/${addr}`} target="_blank" rel="noreferrer"
+              <a href={`https://celoscan.io/address/${addr}`} target="_blank" rel="noreferrer"
                 className="text-zinc-500 hover:text-cyan-400 transition-colors flex-shrink-0">
                 <ExternalLink className="w-4 h-4" />
               </a>
@@ -70,7 +70,7 @@ export default function SettingsPage() {
               </div>
               <div className="flex items-center gap-3 flex-shrink-0">
                 <span className="text-xs text-zinc-500">{a.price}</span>
-                <a href={`https://alfajores.celoscan.io/address/${a.address}`} target="_blank" rel="noreferrer"
+                <a href={`https://celoscan.io/address/${a.address}`} target="_blank" rel="noreferrer"
                   className="text-zinc-500 hover:text-cyan-400 transition-colors">
                   <ExternalLink className="w-3.5 h-3.5" />
                 </a>

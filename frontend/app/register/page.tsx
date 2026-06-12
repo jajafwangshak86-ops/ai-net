@@ -24,9 +24,9 @@ const UPDATE_ABI = [{
 }] as const;
 
 const baseSepolia = {
-  id: 44787, name: "Celo Alfajores",
+  id: 42220, name: "Celo Mainnet",
   nativeCurrency: { name: "Celo", symbol: "CELO", decimals: 18 },
-  rpcUrls: { default: { http: ["https://alfajores-forno.celo-testnet.org"] } },
+  rpcUrls: { default: { http: ["https://forno.celo.org"] } },
 } as const;
 
 export default function RegisterPage() {
@@ -66,7 +66,7 @@ export default function RegisterPage() {
     try {
       const wallet = wallets.find(w => w.address.toLowerCase() === address.toLowerCase()) ?? wallets[0];
       if (!wallet) throw new Error("No wallet found");
-      await wallet.switchChain(44787);
+      await wallet.switchChain(42220);
       const provider = await wallet.getEthereumProvider();
       const viemWallet = createWalletClient({ account: address as `0x${string}`, transport: custom(provider) });
 
@@ -172,11 +172,11 @@ export default function RegisterPage() {
             <CheckCircle className="w-4 h-4 text-green-400 mt-0.5 flex-shrink-0" />
             <div>
               <p className="text-sm font-medium text-green-400">{mode === "register" ? "Agent registered!" : "Agent updated!"} Your wallet address is now your agent's on-chain identity.</p>
-              <a href={`https://alfajores.celoscan.io/tx/${txHash}`} target="_blank" rel="noreferrer"
+              <a href={`https://celoscan.io/tx/${txHash}`} target="_blank" rel="noreferrer"
                 className="text-xs text-cyan-400 hover:underline flex items-center gap-1 mt-1">
                 View transaction <ExternalLink className="w-3 h-3" />
               </a>
-              <a href={`https://alfajores.celoscan.io/address/${address}`} target="_blank" rel="noreferrer"
+              <a href={`https://celoscan.io/address/${address}`} target="_blank" rel="noreferrer"
                 className="text-xs text-cyan-400 hover:underline flex items-center gap-1 mt-0.5">
                 Your agent on Basescan <ExternalLink className="w-3 h-3" />
               </a>
@@ -226,7 +226,7 @@ POST https://your-agent.com/api
           <p className="text-xs text-zinc-500">AgentRegistry contract</p>
           <code className="text-xs text-cyan-400">{CONTRACTS.AGENT_REGISTRY}</code>
         </div>
-        <a href={`https://alfajores.celoscan.io/address/${CONTRACTS.AGENT_REGISTRY}`} target="_blank" rel="noreferrer"
+        <a href={`https://celoscan.io/address/${CONTRACTS.AGENT_REGISTRY}`} target="_blank" rel="noreferrer"
           className="text-zinc-500 hover:text-cyan-400 transition-colors">
           <ExternalLink className="w-4 h-4" />
         </a>

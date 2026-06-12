@@ -7,9 +7,9 @@ import type { Agent } from "@/components/agents/agent-card";
 
 const chain = {
   id: CHAIN_ID,
-  name: "Celo Alfajores",
+  name: "Celo Mainnet",
   nativeCurrency: { name: "Celo", symbol: "CELO", decimals: 18 },
-  rpcUrls: { default: { http: ["https://alfajores-forno.celo-testnet.org"] } },
+  rpcUrls: { default: { http: ["https://forno.celo.org"] } },
 } as const;
 
 const REGISTRY_ABI = [

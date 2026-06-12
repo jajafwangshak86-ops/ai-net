@@ -10,7 +10,7 @@ import { CONTRACTS } from "@/lib/constants";
 import { createPublicClient, http } from "viem";
 import type { TaskRecord } from "@/hooks/use-tasks";
 
-const celoAlfajores = { id: 44787, name: "Celo Alfajores", nativeCurrency: { name: "Celo", symbol: "CELO", decimals: 18 }, rpcUrls: { default: { http: ["https://alfajores-forno.celo-testnet.org"] } } } as const;
+const celoAlfajores = { id: 42220, name: "Celo Mainnet", nativeCurrency: { name: "Celo", symbol: "CELO", decimals: 18 }, rpcUrls: { default: { http: ["https://forno.celo.org"] } } } as const;
 
 const COORDINATOR_ABI = [{ name: "taskCount", type: "function", stateMutability: "view", inputs: [], outputs: [{ type: "uint256" }] }] as const;
 const REGISTRY_ABI    = [{ name: "totalAgents", type: "function", stateMutability: "view", inputs: [], outputs: [{ type: "uint256" }] }] as const;

@@ -1,18 +1,24 @@
 "use client";
 
-import { Search, Menu } from "lucide-react";
+import { Search, Menu, Smartphone } from "lucide-react";
 import { WalletConnect } from "./wallet-connect";
 
-interface HeaderProps { onMenuClick: () => void; isMiniPay?: boolean; }
+interface HeaderProps {
+  onMenuClick: () => void;
+  isMiniPay?: boolean;
+  miniPayAddress?: `0x${string}` | null;
+}
 
-export function Header({ onMenuClick, isMiniPay }: HeaderProps) {
+export function Header({ onMenuClick, isMiniPay, miniPayAddress }: HeaderProps) {
   return (
     <header className="h-14 flex items-center gap-3 px-4 md:px-6 flex-shrink-0 border-b border-white/[0.06] sticky top-0 z-30"
       style={{ background: "rgba(7,7,15,0.9)", backdropFilter: "blur(20px)" }}>
 
-      <button onClick={onMenuClick} className="lg:hidden p-2 text-slate-400 hover:text-white transition-colors rounded-lg hover:bg-white/5">
-        <Menu className="w-5 h-5" />
-      </button>
+      {!isMiniPay && (
+        <button onClick={onMenuClick} className="lg:hidden p-2 text-slate-400 hover:text-white transition-colors rounded-lg hover:bg-white/5">
+          <Menu className="w-5 h-5" />
+        </button>
+      )}
 
       <div className="relative flex-1 max-w-sm">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-600 pointer-events-none" />
@@ -26,7 +32,17 @@ export function Header({ onMenuClick, isMiniPay }: HeaderProps) {
           <span className="text-xs font-medium text-green-400">Celo Mainnet</span>
         </div>
         <div className="hidden md:block h-4 w-px bg-white/10" />
-        <WalletConnect />
+
+        {isMiniPay && miniPayAddress ? (
+          <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl border border-green-500/20 bg-green-500/5">
+            <Smartphone className="w-3.5 h-3.5 text-green-400" />
+            <span className="text-sm font-medium text-slate-200">
+              {miniPayAddress.slice(0, 6)}…{miniPayAddress.slice(-4)}
+            </span>
+          </div>
+        ) : (
+          <WalletConnect />
+        )}
       </div>
     </header>
   );

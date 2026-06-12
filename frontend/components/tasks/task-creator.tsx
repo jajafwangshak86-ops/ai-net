@@ -6,6 +6,7 @@ import { CAPABILITIES, CONTRACTS, BACKEND_URL } from "@/lib/constants";
 import { encodeFunctionData, createWalletClient, custom } from "viem";
 import { useWallet } from "@/hooks/use-wallet";
 import { useWallets } from "@privy-io/react-auth";
+import { useMiniPay } from "@/hooks/use-minipay";
 import type { TaskRecord } from "@/hooks/use-tasks";
 
 const PIPELINE_LABELS: Record<string, string> = {
@@ -41,6 +42,7 @@ export function TaskCreator({ onTaskComplete }: Props) {
 
   const { connected, address, smartAccount, connect } = useWallet();
   const { wallets } = useWallets();
+  const { isMiniPay, address: miniPayAddress, client: miniPayClient } = useMiniPay();
 
   const busy = step !== "idle" && step !== "done" && step !== "error";
   const pipelineKeys = ["creating", ...capabilities];
@@ -62,7 +64,7 @@ export function TaskCreator({ onTaskComplete }: Props) {
 
   async function handleSubmit() {
     if (!description.trim() || busy) return;
-    if (!connected) { connect(); return; }
+    if (!connected && !isMiniPay) { connect(); return; }
 
     // Auto-suggest agents and capture the result directly (don't rely on state update)
     let activeCaps = capabilities;
@@ -85,14 +87,22 @@ export function TaskCreator({ onTaskComplete }: Props) {
     const pKeys = ["creating", ...activeCaps];
 
     try {
-      // ── Send createTask via Privy wallet ──
-      const wallet = wallets.find(w => w.address.toLowerCase() === address.toLowerCase()) ?? wallets[0];
-      if (!wallet) throw new Error("No wallet found. Please reconnect.");
-      await wallet.switchChain(42220);
-      const provider = await wallet.getEthereumProvider();
-      const viemWallet = createWalletClient({ account: address as `0x${string}`, transport: custom(provider) });
+      // ── Send createTask via MiniPay or Privy wallet ──
+      const celoMainnet = { id: 42220, name: "Celo Mainnet", nativeCurrency: { name: "Celo", symbol: "CELO", decimals: 18 }, rpcUrls: { default: { http: ["https://forno.celo.org"] } } };
+      let viemWallet;
+      if (isMiniPay && miniPayClient && miniPayAddress) {
+        viemWallet = miniPayClient;
+      } else {
+        const wallet = wallets.find(w => w.address.toLowerCase() === address.toLowerCase()) ?? wallets[0];
+        if (!wallet) throw new Error("No wallet found. Please reconnect.");
+        await wallet.switchChain(42220);
+        const provider = await wallet.getEthereumProvider();
+        viemWallet = createWalletClient({ account: address as `0x${string}`, transport: custom(provider) });
+      }
+      const txAddress = (isMiniPay ? miniPayAddress : address) as `0x${string}`;
       const txHash = await viemWallet.sendTransaction({
-        chain: { id: 42220, name: "Celo Mainnet", nativeCurrency: { name: "Celo", symbol: "CELO", decimals: 18 }, rpcUrls: { default: { http: ["https://forno.celo.org"] } } },
+        chain: celoMainnet as any,
+        account: txAddress,
         to:    CONTRACTS.TASK_COORDINATOR,
         data:  encodeFunctionData({ abi: CREATE_TASK_ABI, functionName: "createTask", args: [description, BigInt(7 * 24 * 60 * 60)] }),
         value: BigInt("8000000000000000"),

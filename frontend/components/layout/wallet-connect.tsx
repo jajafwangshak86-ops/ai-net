@@ -25,7 +25,7 @@ export function WalletConnect() {
       <button onClick={copyAddress} className="text-slate-500 hover:text-white transition-colors">
         {copied ? <Check className="w-3.5 h-3.5 text-green-400" /> : <Copy className="w-3.5 h-3.5" />}
       </button>
-      <a href={`https://alfajores.celoscan.io/address/${address}`} target="_blank" rel="noreferrer"
+      <a href={`https://celoscan.io/address/${address}`} target="_blank" rel="noreferrer"
         className="text-slate-500 hover:text-cyan-400 transition-colors">
         <ExternalLink className="w-3.5 h-3.5" />
       </a>

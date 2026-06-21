@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Sidebar } from "@/components/layout/sidebar";
 import { Header } from "@/components/layout/header";
 import { useMiniPay } from "@/hooks/use-minipay";
+import { MiniPayBanner } from "@/components/layout/minipay-banner";
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -18,8 +19,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           isMiniPay={isMiniPay}
           miniPayAddress={miniPayAddress}
         />
-        <main className="flex-1 p-3 md:p-6 overflow-auto">{children}</main>
+        <main className="flex-1 p-3 md:p-6 overflow-auto pb-24">{children}</main>
       </div>
+      <MiniPayBanner />
     </div>
   );
 }

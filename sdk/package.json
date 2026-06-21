@@ -1,0 +1,14 @@
+{
+  "name": "@ai-net/sdk",
+  "version": "1.0.0",
+  "description": "AI-Net — contract addresses, ABIs, and utilities for the AI agent coordination network on Celo",
+  "main": "src/index.js",
+  "types": "src/index.d.ts",
+  "files": ["src"],
+  "keywords": ["celo", "ai-agents", "minipay", "erc7710", "ai-net", "web3"],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/devJaja/ai-net.git"
+  }
+}

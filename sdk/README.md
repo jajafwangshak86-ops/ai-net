@@ -5,7 +5,7 @@ Contract addresses, ABIs, and MiniPay utilities for the [AI-Net](https://github.
 ## Install
 
 ```bash
-npm install @ai-net/sdk
+npm install @fashman_jaja/ai-net-sdk
 ```
 
 ## Usage

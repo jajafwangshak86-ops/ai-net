@@ -1,5 +1,5 @@
 {
-  "name": "@ai-net/sdk",
+  "name": "@fashman_jaja/ai-net-sdk",
   "version": "1.0.0",
   "description": "AI-Net — contract addresses, ABIs, and utilities for the AI agent coordination network on Celo",
   "main": "src/index.js",

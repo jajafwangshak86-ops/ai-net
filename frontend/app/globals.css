@@ -355,3 +355,4 @@ input[type=range] { accent-color:var(--accent-cyan); }
 .icon-lg { width:24px; height:24px; }
 .icon-sm { width:14px; height:14px; }
 .gap-section { gap:32px; }
+.p-section { padding:24px; }

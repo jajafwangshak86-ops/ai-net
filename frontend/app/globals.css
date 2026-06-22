@@ -393,3 +393,4 @@ input[type=range] { accent-color:var(--accent-cyan); }
 @keyframes ripple { to { transform:scale(4); opacity:0; } } .ripple-effect { position:relative; overflow:hidden; }
 .grid-2 { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
 .grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+.flex-center { display:flex; align-items:center; justify-content:center; }

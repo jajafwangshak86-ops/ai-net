@@ -388,3 +388,4 @@ input[type=range] { accent-color:var(--accent-cyan); }
 .card-hover-scale { transition:transform 0.2s ease; } .card-hover-scale:hover { transform:scale(1.01); }
 .text-gradient-amber { background:linear-gradient(135deg,#f59e0b,#d97706); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
 .btn-danger { background:linear-gradient(135deg,#ef4444,#dc2626); border:none; border-radius:10px; color:#fff; font-weight:600; cursor:pointer; transition:opacity 0.15s ease; } .btn-danger:hover { opacity:0.9; }
+.btn-sm { padding:6px 14px; font-size:12px; border-radius:8px; font-weight:500; }

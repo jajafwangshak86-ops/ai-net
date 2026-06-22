@@ -344,3 +344,4 @@ body {
 @keyframes spin-slow { to{transform:rotate(360deg)} } .spin-slow { animation:spin-slow 8s linear infinite; }
 .text-xs-caps { font-size:10px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; }
 .truncate-md { max-width:200px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.input-sm { padding:6px 10px; font-size:12px; border-radius:8px; }

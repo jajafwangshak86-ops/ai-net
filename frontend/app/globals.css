@@ -346,3 +346,4 @@ body {
 .truncate-md { max-width:200px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .input-sm { padding:6px 10px; font-size:12px; border-radius:8px; }
 .input-lg { padding:14px 16px; font-size:16px; border-radius:14px; }
+input[type=range] { accent-color:var(--accent-cyan); }

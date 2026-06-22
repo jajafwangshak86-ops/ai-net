@@ -331,3 +331,6 @@ body {
 
 /* ── Utility 18 ── */
 @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} } .float { animation: float 3s ease-in-out infinite; }
+
+/* ── Utility 19 ── */
+.blur-backdrop { backdrop-filter:blur(40px); -webkit-backdrop-filter:blur(40px); }

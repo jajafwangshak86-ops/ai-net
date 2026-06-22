@@ -400,3 +400,4 @@ input[type=range] { accent-color:var(--accent-cyan); }
 .inline-stack { display:flex; align-items:center; gap:8px; }
 .w-fit { width:fit-content; }
 .h-fit { height:fit-content; }
+.min-h-screen-safe { min-height: 100dvh; }

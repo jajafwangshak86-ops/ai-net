@@ -271,3 +271,9 @@ body {
   z-index: 100;
 }
 .tooltip:hover .tooltip-content { opacity: 1; }
+
+/* ── Dot grid background ────────────────────────────────────────────────── */
+.dot-grid {
+  background-image: radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 24px 24px;
+}

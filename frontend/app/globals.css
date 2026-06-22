@@ -356,3 +356,4 @@ input[type=range] { accent-color:var(--accent-cyan); }
 .icon-sm { width:14px; height:14px; }
 .gap-section { gap:32px; }
 .p-section { padding:24px; }
+.rounded-2xl-custom { border-radius:20px; }

@@ -199,3 +199,7 @@ body {
 /* ── Typewriter cursor ──────────────────────────────────────────────────── */
 @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
 .cursor::after { content:'|'; animation: blink 1s step-end infinite; margin-left:1px; }
+
+/* ── Neon text glow ─────────────────────────────────────────────────────── */
+.neon-text { text-shadow: 0 0 10px rgba(34,211,238,0.6), 0 0 20px rgba(34,211,238,0.3); }
+.neon-text-violet { text-shadow: 0 0 10px rgba(139,92,246,0.6), 0 0 20px rgba(139,92,246,0.3); }

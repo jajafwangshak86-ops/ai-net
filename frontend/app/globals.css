@@ -289,3 +289,6 @@ body {
 
 /* ── Utility 4 ── */
 .divider { height: 1px; background: var(--border-subtle); margin: 0; border: none; }
+
+/* ── Utility 5 ── */
+.mono { font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace; }

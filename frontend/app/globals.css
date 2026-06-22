@@ -358,3 +358,4 @@ input[type=range] { accent-color:var(--accent-cyan); }
 .p-section { padding:24px; }
 .rounded-2xl-custom { border-radius:20px; }
 .backdrop-dark { background:rgba(7,7,15,0.85); backdrop-filter:blur(20px); }
+.text-muted { color:#475569; }

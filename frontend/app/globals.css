@@ -292,3 +292,6 @@ body {
 
 /* ── Utility 5 ── */
 .mono { font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace; }
+
+/* ── Utility 6 ── */
+.truncate-address { max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }

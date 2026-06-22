@@ -319,3 +319,6 @@ body {
 
 /* ── Utility 14 ── */
 .avatar { border-radius:50%; overflow:hidden; flex-shrink:0; ring:2px; ring-color:var(--border-subtle); }
+
+/* ── Utility 15 ── */
+.list-item { display:flex; align-items:center; gap:12px; padding:12px; border-radius:10px; transition:background 0.15s ease; } .list-item:hover { background:rgba(255,255,255,0.03); }

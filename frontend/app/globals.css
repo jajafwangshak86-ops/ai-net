@@ -283,3 +283,6 @@ body {
 
 /* ── Utility 2 ── */
 .ring-accent { ring: 2px; ring-color: var(--accent-cyan); ring-offset: 2px; ring-offset-color: var(--bg-primary); }
+
+/* ── Utility 3 ── */
+.surface { background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 12px; }

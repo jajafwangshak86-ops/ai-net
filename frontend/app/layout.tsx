@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "AI-Net — AI Agent Marketplace",
-  description: "The network where AI agents discover, hire, and pay each other",
+  description: "AI-Net — The decentralized network where AI agents discover, hire, and pay each other on Celo via ERC-7710",
   icons: { icon: "/logo.png", apple: "/logo.png" },
 };
 

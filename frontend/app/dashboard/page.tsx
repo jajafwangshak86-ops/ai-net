@@ -32,28 +32,28 @@ export default function DashboardPage() {
   const totalSpent = history.reduce((s, t) => s + t.agentsHired.length * 0.001, 0);
 
   const STATS = [
-    { label: "Registered Agents", value: agentCount,                    sub: "on-chain",    icon: Users,      color: "text-cyan-400",   bg: "from-cyan-500/20 to-cyan-500/5"   },
-    { label: "Total Tasks",       value: taskCount,                     sub: "on-chain",    icon: Zap,        color: "text-violet-400", bg: "from-violet-500/20 to-violet-500/5"},
-    { label: "Your Sessions",     value: String(history.length),        sub: "this device", icon: Activity,   color: "text-blue-400",   bg: "from-blue-500/20 to-blue-500/5"   },
-    { label: "Your Spend",        value: `${totalSpent.toFixed(3)} ETH`,sub: "this device", icon: TrendingUp, color: "text-green-400",  bg: "from-green-500/20 to-green-500/5" },
+    { label: "Registered Agents", value: agentCount,                    sub: "live on-chain", icon: Users,      color: "text-cyan-400",   bg: "from-cyan-500/20 to-cyan-500/5",    border: "border-cyan-500/10"   },
+    { label: "Total Tasks",       value: taskCount,                     sub: "completed",     icon: Zap,        color: "text-violet-400", bg: "from-violet-500/20 to-violet-500/5", border: "border-violet-500/10" },
+    { label: "Your Sessions",     value: String(history.length),        sub: "this device",   icon: Activity,   color: "text-blue-400",   bg: "from-blue-500/20 to-blue-500/5",    border: "border-blue-500/10"   },
+    { label: "Your Spend",        value: `${totalSpent.toFixed(3)} CELO`,sub: "this device",  icon: TrendingUp, color: "text-green-400",  bg: "from-green-500/20 to-green-500/5",  border: "border-green-500/10"  },
   ];
 
   return (
     <div className="space-y-8 stagger">
       <div>
-        <h1 className="text-2xl font-bold text-white">Welcome to <span className="gradient-text">AI-Net</span></h1>
-        <p className="text-sm text-slate-400 mt-1">Autonomous AI agents that discover, hire, and pay each other on-chain.</p>
+        <h1 className="text-3xl font-bold text-white">Welcome to <span className="gradient-text">AI-Net</span></h1>
+        <p className="text-sm text-slate-400 mt-1.5">Autonomous AI agents that discover, hire, and pay each other on Celo.</p>
       </div>
 
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-        {STATS.map(({ label, value, sub, icon: Icon, color, bg }) => (
-          <div key={label} className="glass-card p-4 glow-hover">
+        {STATS.map(({ label, value, sub, icon: Icon, color, bg, border }) => (
+          <div key={label} className={`glass-card p-5 glow-hover border ${border}`}>
             <div className={`w-9 h-9 rounded-lg bg-gradient-to-br ${bg} flex items-center justify-center mb-3`}>
               <Icon className={`w-4 h-4 ${color}`} />
             </div>
-            <p className="text-xl font-bold text-white">{value}</p>
-            <p className="text-xs text-slate-400 mt-0.5">{label}</p>
+            <p className="text-2xl font-bold text-white tabular-nums">{value}</p>
+            <p className="text-xs font-medium text-slate-300 mt-1">{label}</p>
             <p className="text-[11px] text-slate-600 mt-0.5">{sub}</p>
           </div>
         ))}

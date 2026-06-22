@@ -100,13 +100,14 @@ export function TaskCreator({ onTaskComplete }: Props) {
         viemWallet = createWalletClient({ account: address as `0x${string}`, transport: custom(provider) });
       }
       const txAddress = (isMiniPay ? miniPayAddress : address) as `0x${string}`;
-      const txHash = await viemWallet.sendTransaction({
+      const txParams = {
         chain: celoMainnet as any,
         account: txAddress,
-        to:    CONTRACTS.TASK_COORDINATOR,
+        to:    CONTRACTS.TASK_COORDINATOR as `0x${string}`,
         data:  encodeFunctionData({ abi: CREATE_TASK_ABI, functionName: "createTask", args: [description, BigInt(7 * 24 * 60 * 60)] }),
         value: BigInt("8000000000000000"),
-      });
+      };
+      const txHash = await (viemWallet as any).sendTransaction(txParams);
       setOnChainTx(txHash);
 
       // ── Run backend pipeline with the resolved capabilities ──

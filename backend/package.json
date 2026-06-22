@@ -1,5 +1,5 @@
 {
-  "name": "guildnet-backend",
+  "name": "ai-net-backend",
   "version": "1.0.0",
   "description": "GuildNet coordinator backend — orchestrates AI agents on-chain",
   "main": "dist/server.js",

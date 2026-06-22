@@ -392,3 +392,4 @@ input[type=range] { accent-color:var(--accent-cyan); }
 .btn-lg { padding:14px 28px; font-size:16px; border-radius:14px; font-weight:600; }
 @keyframes ripple { to { transform:scale(4); opacity:0; } } .ripple-effect { position:relative; overflow:hidden; }
 .grid-2 { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
+.grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }

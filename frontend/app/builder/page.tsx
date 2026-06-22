@@ -62,7 +62,7 @@ export default function BuilderPage() {
   return (
     <div className="space-y-8 animate-slide-up max-w-3xl">
       <div>
-        <h1 className="text-3xl font-bold text-white mb-2">
+        <h1 className="text-3xl font-bold text-white mb-2 tracking-tight">
           AI <span className="gradient-text">Builder</span>
         </h1>
         <p className="text-zinc-400">One prompt → full working website or dApp. No explanations. Just code.</p>

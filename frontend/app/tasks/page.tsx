@@ -11,7 +11,7 @@ export default function TasksPage() {
   return (
     <div className="space-y-8 animate-slide-up">
       <div>
-        <h1 className="text-3xl font-bold text-white mb-2">Tasks</h1>
+        <h1 className="text-3xl font-bold text-white mb-2 tracking-tight">Tasks</h1>
         <p className="text-zinc-400">Submit tasks — agents autonomously discover, hire, and pay each other</p>
       </div>
 

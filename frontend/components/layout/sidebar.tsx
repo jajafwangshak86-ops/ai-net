@@ -23,7 +23,7 @@ export function Sidebar({ mobileOpen, onClose }: Props) {
   const pathname = usePathname();
 
   const content = (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full select-none">
       <div className={`flex items-center gap-3 p-4 border-b border-white/[0.06] ${collapsed ? "justify-center" : ""}`}>
         <div className="w-9 h-9 rounded-xl overflow-hidden flex-shrink-0 ring-1 ring-white/10">
           <Image src="/logo.png" alt="AI-Net" width={36} height={36} className="object-cover w-full h-full" />

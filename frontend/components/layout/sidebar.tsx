@@ -31,7 +31,7 @@ export function Sidebar({ mobileOpen, onClose }: Props) {
         {!collapsed && (
           <div className="min-w-0">
             <p className="font-bold text-base gradient-text leading-none">AI-Net</p>
-            <p className="text-[11px] text-slate-500 mt-0.5">Agent Network</p>
+            <p className="text-[11px] text-slate-500 mt-0.5">Celo Mainnet</p>
           </div>
         )}
         <button onClick={onClose} className="ml-auto lg:hidden text-slate-500 hover:text-white p-1 rounded-lg hover:bg-white/5">

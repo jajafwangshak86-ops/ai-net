@@ -385,3 +385,4 @@ input[type=range] { accent-color:var(--accent-cyan); }
 .interactive { cursor:pointer; user-select:none; -webkit-tap-highlight-color:transparent; }
 *[data-active=true] { border-color:var(--border-active)!important; }
 .text-inherit-size { font-size:inherit; }
+.card-hover-scale { transition:transform 0.2s ease; } .card-hover-scale:hover { transform:scale(1.01); }

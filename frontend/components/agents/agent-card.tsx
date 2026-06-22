@@ -32,7 +32,7 @@ export function AgentCard({ name, type, description, price, rating, tasks, statu
   const s = STATUS[status];
 
   return (
-    <div className="glass-card p-5 glow-hover flex flex-col group">
+    <div className="glass-card card-shine p-5 glow-hover flex flex-col group">
       <div className="flex items-start justify-between mb-3">
         <div className="flex items-center gap-3">
           <div className={cn("w-11 h-11 rounded-xl bg-gradient-to-br flex items-center justify-center text-white font-bold text-base flex-shrink-0", gradient)}>

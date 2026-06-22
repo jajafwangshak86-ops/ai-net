@@ -286,3 +286,6 @@ body {
 
 /* ── Utility 3 ── */
 .surface { background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 12px; }
+
+/* ── Utility 4 ── */
+.divider { height: 1px; background: var(--border-subtle); margin: 0; border: none; }

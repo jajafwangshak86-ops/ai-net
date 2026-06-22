@@ -390,3 +390,4 @@ input[type=range] { accent-color:var(--accent-cyan); }
 .btn-danger { background:linear-gradient(135deg,#ef4444,#dc2626); border:none; border-radius:10px; color:#fff; font-weight:600; cursor:pointer; transition:opacity 0.15s ease; } .btn-danger:hover { opacity:0.9; }
 .btn-sm { padding:6px 14px; font-size:12px; border-radius:8px; font-weight:500; }
 .btn-lg { padding:14px 28px; font-size:16px; border-radius:14px; font-weight:600; }
+@keyframes ripple { to { transform:scale(4); opacity:0; } } .ripple-effect { position:relative; overflow:hidden; }

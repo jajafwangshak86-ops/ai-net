@@ -345,3 +345,4 @@ body {
 .text-xs-caps { font-size:10px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; }
 .truncate-md { max-width:200px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .input-sm { padding:6px 10px; font-size:12px; border-radius:8px; }
+.input-lg { padding:14px 16px; font-size:16px; border-radius:14px; }

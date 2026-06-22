@@ -34,9 +34,12 @@ body {
   -webkit-backdrop-filter: blur(24px);
   border: 1px solid var(--border-subtle);
   border-radius: 16px;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
-.glass-card:hover { border-color: rgba(255,255,255,0.1); }
+.glass-card:hover {
+  border-color: rgba(255,255,255,0.1);
+  transform: translateY(-1px);
+}
 
 /* ── Gradient text ──────────────────────────────────────────────────────── */
 .gradient-text {

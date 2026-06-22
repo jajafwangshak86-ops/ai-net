@@ -360,3 +360,4 @@ input[type=range] { accent-color:var(--accent-cyan); }
 .backdrop-dark { background:rgba(7,7,15,0.85); backdrop-filter:blur(20px); }
 .text-muted { color:#475569; }
 .text-subtle { color:#334155; }
+.font-display { font-weight:800; letter-spacing:-0.02em; }

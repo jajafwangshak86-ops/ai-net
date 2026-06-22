@@ -21,7 +21,7 @@ export function WalletConnect() {
       {smartAccount
         ? <Zap className="w-3.5 h-3.5 text-cyan-400 flex-shrink-0" />
         : <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse flex-shrink-0" />}
-      <span className="text-sm font-medium text-slate-200">{address.slice(0,6)}…{address.slice(-4)}</span>
+      <span className="text-sm font-medium text-slate-200 font-mono">{address.slice(0,6)}…{address.slice(-4)}</span>
       <button onClick={copyAddress} className="text-slate-500 hover:text-white transition-colors">
         {copied ? <Check className="w-3.5 h-3.5 text-green-400" /> : <Copy className="w-3.5 h-3.5" />}
       </button>

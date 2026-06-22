@@ -399,3 +399,4 @@ input[type=range] { accent-color:var(--accent-cyan); }
 .stack-lg { display:flex; flex-direction:column; gap:16px; }
 .inline-stack { display:flex; align-items:center; gap:8px; }
 .w-fit { width:fit-content; }
+.h-fit { height:fit-content; }

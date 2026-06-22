@@ -280,3 +280,6 @@ body {
 
 /* ── Utility 1 ── */
 .text-balance { text-wrap: balance; }
+
+/* ── Utility 2 ── */
+.ring-accent { ring: 2px; ring-color: var(--accent-cyan); ring-offset: 2px; ring-offset-color: var(--bg-primary); }

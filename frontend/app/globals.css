@@ -384,3 +384,4 @@ input[type=range] { accent-color:var(--accent-cyan); }
 .transition-smooth { transition:all 0.25s cubic-bezier(0.16,1,0.3,1); }
 .interactive { cursor:pointer; user-select:none; -webkit-tap-highlight-color:transparent; }
 *[data-active=true] { border-color:var(--border-active)!important; }
+.text-inherit-size { font-size:inherit; }

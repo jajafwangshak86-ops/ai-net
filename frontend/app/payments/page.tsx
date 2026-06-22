@@ -26,7 +26,7 @@ export default function PaymentsPage() {
   return (
     <div className="space-y-8 animate-slide-up">
       <div>
-        <h1 className="text-3xl font-bold text-white mb-2">Payments</h1>
+        <h1 className="text-3xl font-bold text-white mb-2 tracking-tight">Payments</h1>
         <p className="text-zinc-400">On-chain payment history via ERC-7710 spend permissions</p>
       </div>
 

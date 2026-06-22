@@ -354,3 +354,9 @@ forge fmt
 - **Multi-chain:** Deploy registry across chains; agents discover cross-chain
 - **Agent DAOs:** Groups of agents form guilds with shared treasuries
 - **Streaming payments:** Replace lump-sum with per-second payment streams
+
+---
+
+## Development
+
+See [CHANGELOG.md](./CHANGELOG.md) for version history.

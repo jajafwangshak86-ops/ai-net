@@ -383,3 +383,4 @@ input[type=range] { accent-color:var(--accent-cyan); }
 .truncate-sm { max-width:80px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .transition-smooth { transition:all 0.25s cubic-bezier(0.16,1,0.3,1); }
 .interactive { cursor:pointer; user-select:none; -webkit-tap-highlight-color:transparent; }
+*[data-active=true] { border-color:var(--border-active)!important; }

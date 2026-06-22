@@ -377,3 +377,4 @@ input[type=range] { accent-color:var(--accent-cyan); }
 .alert-error { background:rgba(239,68,68,0.08); border-color:rgba(239,68,68,0.2); color:#fca5a5; }
 @media(max-width:640px){.hide-mobile{display:none!important;}}
 @media(min-width:641px){.show-mobile-only{display:none!important;}}
+.container-app { max-width:1280px; margin:0 auto; padding:0 16px; }

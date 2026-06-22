@@ -394,3 +394,4 @@ input[type=range] { accent-color:var(--accent-cyan); }
 .grid-2 { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
 .grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
 .flex-center { display:flex; align-items:center; justify-content:center; }
+.flex-between { display:flex; align-items:center; justify-content:space-between; }

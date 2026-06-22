@@ -34,3 +34,20 @@ console.log(CONTRACTS.TASK_COORDINATOR);
 ## License
 
 MIT
+
+## API Reference
+
+### `isMiniPay(): boolean`
+Returns `true` if the app is running inside the MiniPay wallet.
+
+### `CONTRACTS`
+Contract addresses on Celo mainnet (chain ID 42220).
+
+### `AGENT_REGISTRY_ABI`
+ABI for `AgentRegistry.sol` — register, update, deactivate, find agents.
+
+### `TASK_COORDINATOR_ABI`
+ABI for `TaskCoordinator.sol` — create tasks, hire agents, complete tasks.
+
+### `GUILD_PERMISSIONS_ABI`
+ABI for `GuildPermissions.sol` — ERC-7710 spend permission delegation.

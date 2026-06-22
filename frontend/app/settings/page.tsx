@@ -16,7 +16,7 @@ export default function SettingsPage() {
   return (
     <div className="space-y-8 animate-slide-up max-w-2xl">
       <div>
-        <h1 className="text-3xl font-bold text-white mb-2">Settings</h1>
+        <h1 className="text-3xl font-bold text-white mb-2">Settings <span className="text-base font-normal text-slate-500">/ Configuration</span></h1>
         <p className="text-zinc-400">Network configuration and deployed contracts</p>
       </div>
 

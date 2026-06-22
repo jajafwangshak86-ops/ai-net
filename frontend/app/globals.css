@@ -362,3 +362,4 @@ input[type=range] { accent-color:var(--accent-cyan); }
 .text-subtle { color:#334155; }
 .font-display { font-weight:800; letter-spacing:-0.02em; }
 .border-glow-cyan { box-shadow:0 0 0 1px rgba(34,211,238,0.3), 0 0 12px rgba(34,211,238,0.15); }
+.border-glow-violet { box-shadow:0 0 0 1px rgba(139,92,246,0.3), 0 0 12px rgba(139,92,246,0.15); }

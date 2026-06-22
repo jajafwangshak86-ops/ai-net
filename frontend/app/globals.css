@@ -328,3 +328,6 @@ body {
 
 /* ── Utility 17 ── */
 .kbd { display:inline-flex; align-items:center; justify-content:center; padding:2px 6px; background:var(--bg-tertiary); border:1px solid var(--border-subtle); border-radius:5px; font-size:11px; font-family:ui-monospace,monospace; color:#94a3b8; }
+
+/* ── Utility 18 ── */
+@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} } .float { animation: float 3s ease-in-out infinite; }

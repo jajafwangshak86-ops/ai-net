@@ -380,3 +380,4 @@ input[type=range] { accent-color:var(--accent-cyan); }
 .container-app { max-width:1280px; margin:0 auto; padding:0 16px; }
 @keyframes wave { 0%,100%{transform:scaleY(1)} 50%{transform:scaleY(1.5)} } .wave span { display:inline-block; animation:wave 1s ease-in-out infinite; } .wave span:nth-child(2){animation-delay:0.1s} .wave span:nth-child(3){animation-delay:0.2s}
 .loading-dots::after { content:'...'; animation:dots 1.5s steps(4,end) infinite; } @keyframes dots { 0%,20%{content:'.'} 40%{content:'..'} 60%,100%{content:'...'} }
+.truncate-sm { max-width:80px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }

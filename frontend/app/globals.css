@@ -334,3 +334,6 @@ body {
 
 /* ── Utility 19 ── */
 .blur-backdrop { backdrop-filter:blur(40px); -webkit-backdrop-filter:blur(40px); }
+
+/* ── Utility 20 ── */
+@keyframes gradient-shift { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%}} .gradient-animate { background-size:200% 200%; animation:gradient-shift 4s ease infinite; }

@@ -277,3 +277,6 @@ body {
   background-image: radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
   background-size: 24px 24px;
 }
+
+/* ── Utility 1 ── */
+.text-balance { text-wrap: balance; }

@@ -2,8 +2,9 @@
 
 import { PrivyProvider } from "@privy-io/react-auth";
 import { CHAIN_ID } from "@/lib/constants";
+import { usePathname } from "next/navigation";
 
-const baseSepolia = {
+const celoMainnet = {
   id: CHAIN_ID,
   name: "Celo Mainnet",
   nativeCurrency: { name: "Celo", symbol: "CELO", decimals: 18 },
@@ -12,14 +13,23 @@ const baseSepolia = {
 };
 
 export function ProvidersInner({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+  const appId = process.env.NEXT_PUBLIC_PRIVY_APP_ID;
+
+  // /mini uses useMiniPay directly — no Privy needed.
+  // Also skip if no valid app ID is configured (avoids crash during local dev).
+  if (pathname === "/mini" || !appId || appId === "placeholder") {
+    return <>{children}</>;
+  }
+
   return (
     <PrivyProvider
-      appId={process.env.NEXT_PUBLIC_PRIVY_APP_ID ?? "placeholder"}
+      appId={appId}
       config={{
         loginMethods: ["wallet", "email"],
         appearance: { theme: "dark", accentColor: "#00d4ff" },
-        defaultChain: baseSepolia as never,
-        supportedChains: [baseSepolia as never],
+        defaultChain: celoMainnet as never,
+        supportedChains: [celoMainnet as never],
         embeddedWallets: {
           ethereum: { createOnLogin: "users-without-wallets" },
         },

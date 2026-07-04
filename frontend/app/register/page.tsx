@@ -7,6 +7,7 @@ import { createWalletClient, custom, encodeFunctionData, parseEther } from "viem
 import { celo } from "viem/chains";
 import { CONTRACTS, CAPABILITIES, BACKEND_URL } from "@/lib/constants";
 import { parseError } from "@/lib/errors";
+import { switchToCelo } from "@/lib/chain";
 
 const REGISTER_ABI = [{
   name: "register", type: "function", stateMutability: "nonpayable",
@@ -60,6 +61,7 @@ export default function RegisterPage() {
     try {
       const ethereum = (window as any).ethereum;
       if (!ethereum) throw new Error("No wallet found. Please install MetaMask.");
+      await switchToCelo();
       const viemWallet = createWalletClient({ account: address as `0x${string}`, chain: celo, transport: custom(ethereum) });
 
       const priceWei = parseEther(price);

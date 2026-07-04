@@ -9,6 +9,7 @@ import { useWallet } from "@/hooks/use-wallet";
 import { useMiniPay } from "@/hooks/use-minipay";
 import type { TaskRecord } from "@/hooks/use-tasks";
 import { parseError } from "@/lib/errors";
+import { switchToCelo } from "@/lib/chain";
 
 const PIPELINE_LABELS: Record<string, string> = {
   creating: "⛓️ Smart Account tx", research: "🔍 Research", risk: "⚠️ Risk",
@@ -90,6 +91,8 @@ export function TaskCreator({ onTaskComplete }: Props) {
       // ── Send createTask via MiniPay or injected wallet ──
       const ethereum = (window as any).ethereum;
       if (!ethereum) throw new Error("No wallet found. Please install MetaMask or open inside MiniPay.");
+
+      if (!isMiniPay) await switchToCelo();
 
       let viemWallet;
       let txAddress: `0x${string}`;

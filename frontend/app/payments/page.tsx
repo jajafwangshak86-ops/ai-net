@@ -17,9 +17,9 @@ export default function PaymentsPage() {
            : i === task.txHashes.length - 1 ? `Task #${task.taskId} — completeTask`
            : `Task #${task.taskId} — hireAgent (${task.agentsHired[i - 1]?.slice(0, 8)}…)`,
       type:   i === task.txHashes.length - 1 ? "in" : "out",
-      amount: i === 0 ? "0.008 ETH"
+      amount: i === 0 ? "0.0008 CELO"
             : i === task.txHashes.length - 1 ? "refund"
-            : "0.001 ETH",
+            : "0.001 cUSD",
     }))
   );
 
@@ -41,7 +41,7 @@ export default function PaymentsPage() {
             <p className="text-xs text-zinc-500 mb-1">{label}</p>
             <div className="flex items-center gap-2">
               <code className="text-xs text-cyan-400 truncate">{addr}</code>
-              <a href={`https://alfajores.celoscan.io/address/${addr}`} target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-white flex-shrink-0">
+              <a href={`https://celoscan.io/address/${addr}`} target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-white flex-shrink-0">
                 <ExternalLink className="w-3.5 h-3.5" />
               </a>
             </div>
@@ -59,7 +59,7 @@ export default function PaymentsPage() {
         <div className="glass-card p-4 flex items-center gap-3">
           <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
           <code className="text-sm text-white">{address}</code>
-          <a href={`https://alfajores.celoscan.io/address/${address}`} target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-white ml-auto">
+          <a href={`https://celoscan.io/address/${address}`} target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-white ml-auto">
             <ExternalLink className="w-4 h-4" />
           </a>
         </div>
@@ -85,7 +85,7 @@ export default function PaymentsPage() {
                   <span className={`text-sm font-medium ${tx.type === "out" ? "text-red-400" : "text-green-400"}`}>
                     {tx.type === "out" ? "-" : "+"}{tx.amount}
                   </span>
-                  <a href={`https://alfajores.celoscan.io/tx/${tx.hash}`} target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-cyan-400 transition-colors">
+                  <a href={`https://celoscan.io/tx/${tx.hash}`} target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-cyan-400 transition-colors">
                     <ExternalLink className="w-4 h-4" />
                   </a>
                 </div>

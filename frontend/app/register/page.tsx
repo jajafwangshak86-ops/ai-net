@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { Bot, ExternalLink, CheckCircle, AlertCircle, Loader2, ShieldCheck, ShieldX } from "lucide-react";
 import { useWallet } from "@/hooks/use-wallet";
-import { useWallets } from "@privy-io/react-auth";
 import { createWalletClient, custom, encodeFunctionData, parseEther } from "viem";
+import { celo } from "viem/chains";
 import { CONTRACTS, CAPABILITIES, BACKEND_URL } from "@/lib/constants";
 
 const REGISTER_ABI = [{
@@ -23,12 +23,6 @@ const UPDATE_ABI = [{
   outputs: [],
 }] as const;
 
-const baseSepolia = {
-  id: 42220, name: "Celo Mainnet",
-  nativeCurrency: { name: "Celo", symbol: "CELO", decimals: 18 },
-  rpcUrls: { default: { http: ["https://forno.celo.org"] } },
-} as const;
-
 export default function RegisterPage() {
   const [endpoint,    setEndpoint]    = useState("");
   const [capability,  setCapability]  = useState("research");
@@ -42,7 +36,6 @@ export default function RegisterPage() {
   const [verified,    setVerified]    = useState<{ ok: boolean; reason?: string } | null>(null);
 
   const { connected, address, connect } = useWallet();
-  const { wallets } = useWallets();
 
   async function verifyEndpoint() {
     if (!endpoint.trim()) return;
@@ -64,11 +57,9 @@ export default function RegisterPage() {
 
     setLoading(true); setError(""); setTxHash("");
     try {
-      const wallet = wallets.find(w => w.address.toLowerCase() === address.toLowerCase()) ?? wallets[0];
-      if (!wallet) throw new Error("No wallet found");
-      await wallet.switchChain(42220);
-      const provider = await wallet.getEthereumProvider();
-      const viemWallet = createWalletClient({ account: address as `0x${string}`, transport: custom(provider) });
+      const ethereum = (window as any).ethereum;
+      if (!ethereum) throw new Error("No wallet found. Please install MetaMask.");
+      const viemWallet = createWalletClient({ account: address as `0x${string}`, chain: celo, transport: custom(ethereum) });
 
       const priceWei = parseEther(price);
       const data = mode === "register"
@@ -76,7 +67,7 @@ export default function RegisterPage() {
         : encodeFunctionData({ abi: UPDATE_ABI,   functionName: "update",     args: [endpoint, priceWei] });
 
       const hash = await viemWallet.sendTransaction({
-        chain: baseSepolia,
+        chain: celo,
         to: CONTRACTS.AGENT_REGISTRY,
         data,
       });

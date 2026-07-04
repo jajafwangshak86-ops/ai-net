@@ -4,8 +4,8 @@ import { useState } from "react";
 import { Send, Sparkles, Loader2, CheckCircle, ChevronDown, ChevronUp, AlertCircle, Zap, Wand2, RefreshCw } from "lucide-react";
 import { CAPABILITIES, CONTRACTS, BACKEND_URL } from "@/lib/constants";
 import { encodeFunctionData, createWalletClient, custom } from "viem";
+import { celo } from "viem/chains";
 import { useWallet } from "@/hooks/use-wallet";
-import { useWallets } from "@privy-io/react-auth";
 import { useMiniPay } from "@/hooks/use-minipay";
 import type { TaskRecord } from "@/hooks/use-tasks";
 
@@ -41,7 +41,6 @@ export function TaskCreator({ onTaskComplete }: Props) {
   const [enhanced,     setEnhanced]     = useState<Record<string, string>>({});
 
   const { connected, address, smartAccount, connect } = useWallet();
-  const { wallets } = useWallets();
   const { isMiniPay, address: miniPayAddress, client: miniPayClient } = useMiniPay();
 
   const busy = step !== "idle" && step !== "done" && step !== "error";
@@ -87,27 +86,29 @@ export function TaskCreator({ onTaskComplete }: Props) {
     const pKeys = ["creating", ...activeCaps];
 
     try {
-      // ── Send createTask via MiniPay or Privy wallet ──
-      const celoMainnet = { id: 42220, name: "Celo Mainnet", nativeCurrency: { name: "Celo", symbol: "CELO", decimals: 18 }, rpcUrls: { default: { http: ["https://forno.celo.org"] } } };
+      // ── Send createTask via MiniPay or injected wallet ──
+      const ethereum = (window as any).ethereum;
+      if (!ethereum) throw new Error("No wallet found. Please install MetaMask or open inside MiniPay.");
+
       let viemWallet;
+      let txAddress: `0x${string}`;
+
       if (isMiniPay && miniPayClient && miniPayAddress) {
-        viemWallet = miniPayClient;
+        viemWallet  = miniPayClient;
+        txAddress   = miniPayAddress;
       } else {
-        const wallet = wallets.find(w => w.address.toLowerCase() === address.toLowerCase()) ?? wallets[0];
-        if (!wallet) throw new Error("No wallet found. Please reconnect.");
-        await wallet.switchChain(42220);
-        const provider = await wallet.getEthereumProvider();
-        viemWallet = createWalletClient({ account: address as `0x${string}`, transport: custom(provider) });
+        viemWallet  = createWalletClient({ account: address as `0x${string}`, chain: celo, transport: custom(ethereum) });
+        txAddress   = address as `0x${string}`;
       }
-      const txAddress = (isMiniPay ? miniPayAddress : address) as `0x${string}`;
-      const txParams = {
-        chain: celoMainnet as any,
+
+      const txHash = await (viemWallet as any).sendTransaction({
+        chain:   celo,
         account: txAddress,
-        to:    CONTRACTS.TASK_COORDINATOR as `0x${string}`,
-        data:  encodeFunctionData({ abi: CREATE_TASK_ABI, functionName: "createTask", args: [description, BigInt(7 * 24 * 60 * 60)] }),
-        value: BigInt("8000000000000000"),
-      };
-      const txHash = await (viemWallet as any).sendTransaction(txParams);
+        to:      CONTRACTS.TASK_COORDINATOR as `0x${string}`,
+        data:    encodeFunctionData({ abi: CREATE_TASK_ABI, functionName: "createTask", args: [description, BigInt(7 * 24 * 60 * 60)] }),
+        value:   BigInt("800000000000000"),
+        feeCurrency: "0x765DE816845861e75A25fCA122bb6898B8B1282a", // cUSD fee abstraction
+      });
       setOnChainTx(txHash);
 
       // ── Run backend pipeline with the resolved capabilities ──

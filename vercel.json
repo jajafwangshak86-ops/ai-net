@@ -1,7 +1,7 @@
 {
   "buildCommand": "cd frontend && npm run build",
   "outputDirectory": "frontend/.next",
-  "installCommand": "cd frontend && npm install --legacy-peer-deps",
+  "installCommand": "cd frontend && npm install --legacy-peer-deps && cd ../backend && npm install",
   "framework": "nextjs",
   "headers": [
     {
@@ -16,6 +16,12 @@
       "headers": [
         { "key": "Cache-Control", "value": "no-store" }
       ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/api/backend/(.*)",
+      "destination": "/api/backend/[...path]"
     }
   ]
 }

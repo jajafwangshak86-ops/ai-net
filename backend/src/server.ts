@@ -205,8 +205,12 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
   res.status(500).json({ error: err.message });
 });
 
-app.listen(config.port, () => {
-  console.log(`[AI-Net] Backend running on port ${config.port}`);
-  console.log(`[AI-Net] Chain ID: ${config.chainId}`);
-  console.log(`[AI-Net] TaskCoordinator: ${config.contracts.taskCoordinator}`);
-});
+export default app;
+
+if (!process.env.VERCEL) {
+  app.listen(config.port, () => {
+    console.log(`[AI-Net] Backend running on port ${config.port}`);
+    console.log(`[AI-Net] Chain ID: ${config.chainId}`);
+    console.log(`[AI-Net] TaskCoordinator: ${config.contracts.taskCoordinator}`);
+  });
+}

@@ -15,8 +15,8 @@ export function parseError(e: unknown): string {
     return "Insufficient balance to complete this transaction.";
 
   // Network / RPC
-  if (/network changed|chain mismatch|wrong network/i.test(raw))
-    return "Wrong network. Please switch to Celo Mainnet.";
+  if (/network changed|chain mismatch|wrong network|does not match the target chain/i.test(raw))
+    return "Wrong network. Please switch to Celo Mainnet (chain 42220).";
 
   if (/timeout|timed out|aborted|abort/i.test(raw))
     return "Request timed out. Please try again.";

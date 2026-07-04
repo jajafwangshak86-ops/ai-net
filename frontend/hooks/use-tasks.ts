@@ -2,6 +2,7 @@
 
 import { useState, useCallback } from "react";
 import { BACKEND_URL } from "@/lib/constants";
+import { parseError } from "@/lib/errors";
 
 export interface TaskRecord {
   taskId: string;
@@ -55,8 +56,7 @@ export function useTasks() {
       return record;
     } catch (e: unknown) {
       clearInterval(ticker);
-      const msg = e instanceof Error ? e.message : String(e);
-      setError(msg);
+      setError(parseError(e));
       return null;
     } finally {
       setRunning(false);

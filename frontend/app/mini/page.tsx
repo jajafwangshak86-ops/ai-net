@@ -10,6 +10,7 @@ import { encodeFunctionData, createWalletClient, custom, parseUnits } from "viem
 import { celo } from "viem/chains";
 import { useMiniPay } from "@/hooks/use-minipay";
 import { CONTRACTS, BACKEND_URL } from "@/lib/constants";
+import { parseError } from "@/lib/errors";
 
 // ── Constants ─────────────────────────────────────────────────────────────────
 
@@ -189,7 +190,7 @@ export default function MiniPage() {
       setResult(data);
       setStep("done");
     } catch (e: unknown) {
-      setError(e instanceof Error ? e.message : String(e));
+      setError(parseError(e));
       setStep("error");
     }
   }, [question, busy, address, isMiniPay, connect]);

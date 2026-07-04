@@ -6,6 +6,7 @@ import { useWallet } from "@/hooks/use-wallet";
 import { createWalletClient, custom, encodeFunctionData, parseEther } from "viem";
 import { celo } from "viem/chains";
 import { CONTRACTS, CAPABILITIES, BACKEND_URL } from "@/lib/constants";
+import { parseError } from "@/lib/errors";
 
 const REGISTER_ABI = [{
   name: "register", type: "function", stateMutability: "nonpayable",
@@ -73,7 +74,7 @@ export default function RegisterPage() {
       });
       setTxHash(hash);
     } catch (e: unknown) {
-      setError(e instanceof Error ? e.message : String(e));
+      setError(parseError(e));
     } finally { setLoading(false); }
   }
 

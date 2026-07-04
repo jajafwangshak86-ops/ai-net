@@ -8,6 +8,7 @@ import { celo } from "viem/chains";
 import { useWallet } from "@/hooks/use-wallet";
 import { useMiniPay } from "@/hooks/use-minipay";
 import type { TaskRecord } from "@/hooks/use-tasks";
+import { parseError } from "@/lib/errors";
 
 const PIPELINE_LABELS: Record<string, string> = {
   creating: "⛓️ Smart Account tx", research: "🔍 Research", risk: "⚠️ Risk",
@@ -126,7 +127,7 @@ export function TaskCreator({ onTaskComplete }: Props) {
       setResult(record); setStep("done");
       onTaskComplete?.(record);
     } catch (e: unknown) {
-      setError(e instanceof Error ? e.message : String(e));
+      setError(parseError(e));
       setStep("error");
     }
   }
@@ -142,10 +143,11 @@ export function TaskCreator({ onTaskComplete }: Props) {
         body: JSON.stringify({ capability: key, originalOutput: original, feedback: fb }),
         signal: AbortSignal.timeout(120_000),
       });
+      if (!res.ok) throw new Error(`Enhancement failed (${res.status})`);
       const data = await res.json();
       if (data.enhanced) setEnhanced(prev => ({ ...prev, [key]: data.enhanced }));
     } catch (e: unknown) {
-      setError(e instanceof Error ? e.message : String(e));
+      setError(parseError(e));
     } finally { setEnhancing(null); }
   }
 

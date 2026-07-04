@@ -3,6 +3,7 @@
 import { useState, useCallback, useEffect } from "react";
 import { createWalletClient, custom, type WalletClient } from "viem";
 import { celo } from "viem/chains";
+import { parseError } from "@/lib/errors";
 
 /**
  * useWallet — injected wallet hook for desktop pages.
@@ -21,16 +22,18 @@ export interface WalletState {
   copied: boolean;
   smartAccount: boolean;
   walletClient: WalletClient | null;
+  connectError: string;
   connect: () => Promise<void>;
   disconnect: () => void;
   copyAddress: () => void;
 }
 
 export function useWallet(): WalletState {
-  const [address, setAddress]         = useState<`0x${string}` | "">("");
-  const [connecting, setConnecting]   = useState(false);
-  const [copied, setCopied]           = useState(false);
+  const [address, setAddress]           = useState<`0x${string}` | "">("");
+  const [connecting, setConnecting]     = useState(false);
+  const [copied, setCopied]             = useState(false);
   const [walletClient, setWalletClient] = useState<WalletClient | null>(null);
+  const [connectError, setConnectError] = useState("");
 
   // Auto-connect if wallet already authorised (e.g. page refresh)
   useEffect(() => {
@@ -59,18 +62,19 @@ export function useWallet(): WalletState {
     if (typeof window === "undefined") return;
     const eth = (window as any).ethereum;
     if (!eth) {
-      alert("No wallet detected. Please install MetaMask or open inside MiniPay.");
+      setConnectError("No wallet detected. Open inside MiniPay or install MetaMask.");
       return;
     }
     setConnecting(true);
+    setConnectError("");
     try {
       const accounts: string[] = await eth.request({ method: "eth_requestAccounts" });
       if (accounts[0]) {
         setAddress(accounts[0] as `0x${string}`);
         setWalletClient(createWalletClient({ chain: celo, transport: custom(eth) }));
       }
-    } catch {
-      // user rejected
+    } catch (e) {
+      setConnectError(parseError(e));
     } finally {
       setConnecting(false);
     }
@@ -95,6 +99,7 @@ export function useWallet(): WalletState {
     copied,
     smartAccount: false, // standard injected wallets are EOAs
     walletClient,
+    connectError,
     connect,
     disconnect,
     copyAddress,

@@ -118,6 +118,8 @@ export default function MiniPage() {
 
       // ── 1. Call createTask with native CELO to escrow budget on-chain ──
       // TaskCoordinator.createTask requires msg.value > 0 (native CELO only).
+      // Pass feeCurrency = cUSD so gas is paid in cUSD (Celo fee abstraction),
+      // meaning users don't need a separate CELO balance for gas inside MiniPay.
       const hash = await walletClient.sendTransaction({
         account: address,
         to: CONTRACTS.TASK_COORDINATOR,
@@ -127,6 +129,8 @@ export default function MiniPage() {
           args: [question, BigInt(7 * 24 * 60 * 60)],
         }),
         value: TASK_PRICE_CELO,
+        // @ts-expect-error — feeCurrency is a Celo-specific tx field not in viem types
+        feeCurrency: CUSD_ADDRESS,
       });
       setTxHash(hash);
 

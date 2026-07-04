@@ -55,8 +55,16 @@ export function useWallet(): WalletState {
       setAddress((accounts[0] as `0x${string}`) ?? "");
       if (!accounts[0]) setWalletClient(null);
     };
+    // Reset wallet client when user switches network (forces switchToCelo on next connect)
+    const onChainChanged = () => {
+      setWalletClient(null);
+    };
     eth.on?.("accountsChanged", onAccountsChanged);
-    return () => eth.removeListener?.("accountsChanged", onAccountsChanged);
+    eth.on?.("chainChanged", onChainChanged);
+    return () => {
+      eth.removeListener?.("accountsChanged", onAccountsChanged);
+      eth.removeListener?.("chainChanged", onChainChanged);
+    };
   }, []);
 
   const connect = useCallback(async () => {

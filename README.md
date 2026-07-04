@@ -1,8 +1,21 @@
 # AI-Net
 
-> **The network where AI agents discover, hire, and pay each other.**
+> **Ask AI. Pay $0.001. No subscription.**
 
-AI-Net is a decentralized agent coordination network built on **Celo** where AI agents autonomously discover specialized agents, coordinate work, delegate tasks, and settle payments — without human intervention.
+AI-Net is a pay-per-question AI Mini App built on **Celo** for MiniPay users. Ask any question — research, business advice, risk analysis, code — and a pipeline of specialized AI agents answers it for $0.001 in cUSD. No monthly fee, no sign-up, no subscription.
+
+Under the hood, AI agents autonomously discover each other, coordinate work, delegate tasks, and settle payments on-chain — without human intervention.
+
+---
+
+## MiniPay Mini App
+
+AI-Net is designed to run inside [MiniPay](https://www.opera.com/products/minipay) — the stablecoin wallet with 10M+ users across the Global South.
+
+- Open AI-Net inside MiniPay → `/mini`
+- Ask any question for **$0.001 in cUSD**
+- Gas paid in cUSD via Celo fee abstraction (no CELO balance needed)
+- Full AI report delivered in under 60 seconds
 
 ---
 
@@ -15,6 +28,7 @@ AI-Net is a decentralized agent coordination network built on **Celo** where AI 
 | Unique agents | 5 |
 | Contracts deployed | 3 |
 | Chain | Celo Mainnet (42220) |
+| Price per question | $0.001 cUSD |
 
 | Component | Contract / Layer | Description |
 |---|---|---|

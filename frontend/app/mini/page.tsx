@@ -129,7 +129,6 @@ export default function MiniPage() {
           args: [question, BigInt(7 * 24 * 60 * 60)],
         }),
         value: TASK_PRICE_CELO,
-        // @ts-expect-error — feeCurrency is a Celo-specific tx field not in viem types
         feeCurrency: CUSD_ADDRESS,
       });
       setTxHash(hash);

@@ -1,19 +1,19 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Bot, Zap, ShieldCheck, Globe, Lock, Cpu } from "lucide-react";
+import { ArrowRight, Bot, Zap, ShieldCheck, Globe, Lock, Cpu, Coins } from "lucide-react";
 
 const FEATURES = [
-  { icon: Bot,        title: "Autonomous Agents",   desc: "AI agents discover, hire, and pay each other — no human needed after task creation." },
-  { icon: Zap,        title: "On-Chain Payments",   desc: "Every agent hire is an atomic CELO payment via ERC-7710 spend permissions." },
-  { icon: ShieldCheck,title: "Open Marketplace",    desc: "Register your own agent, set your price, get paid every time someone hires you." },
-  { icon: Globe,      title: "Celo Native",         desc: "Built on Celo mainnet — fast, cheap, and carbon-neutral by design." },
-  { icon: Lock,       title: "Venice AI Privacy",   desc: "Private, uncensored LLM inference. Your data stays yours." },
-  { icon: Cpu,        title: "MiniPay Ready",       desc: "Works seamlessly inside MiniPay — no extra wallet setup needed." },
+  { icon: Coins,       title: "Pay Per Question",    desc: "Get a full AI research report for $0.001 in cUSD. No monthly subscription — ever." },
+  { icon: Bot,         title: "Multi-Agent AI",      desc: "Research, risk, and report agents collaborate automatically on every question." },
+  { icon: Zap,         title: "Instant On-Chain",    desc: "Every payment settles atomically on Celo. No delays, no hidden fees." },
+  { icon: ShieldCheck, title: "Open Marketplace",    desc: "Register your own AI agent, set your price, earn CELO every time you're hired." },
+  { icon: Lock,        title: "Private by Default",  desc: "Venice AI provides private, uncensored LLM inference. Your data stays yours." },
+  { icon: Cpu,         title: "MiniPay Native",      desc: "Designed for MiniPay. Open it, ask a question, get your report — in under a minute." },
 ];
 
 const STATS = [
-  { value: "1,110+", label: "Tasks Completed" },
-  { value: "3,330+", label: "Transactions" },
+  { value: "1,200+", label: "Tasks Completed" },
+  { value: "$0.001", label: "Per Question" },
   { value: "5",      label: "AI Agents" },
   { value: "Celo",   label: "Mainnet" },
 ];
@@ -39,20 +39,21 @@ export default function HomePage() {
         </div>
 
         <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.1] tracking-tight mb-6">
-          AI agents that<br />
-          <span className="gradient-text">hire &amp; pay each other</span>
+          Ask AI.<br />
+          <span className="gradient-text">Pay $0.001. No subscription.</span>
         </h1>
 
         <p className="text-lg md:text-xl text-slate-400 mb-10 max-w-xl mx-auto leading-relaxed">
-          Submit a task. AI-Net autonomously selects agents, executes with Venice AI, and settles every payment on-chain — without human intervention.
+          Get full AI research reports, risk analysis, and expert answers for $0.001 per question —
+          paid in cUSD on Celo. No sign-up. No monthly fee.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
-          <Link href="/dashboard" className="btn-primary flex items-center justify-center gap-2 px-8 py-3.5 text-base rounded-xl font-semibold">
-            Launch App <ArrowRight className="w-4 h-4" />
+          <Link href="/mini" className="btn-primary flex items-center justify-center gap-2 px-8 py-3.5 text-base rounded-xl font-semibold">
+            Ask Your First Question <ArrowRight className="w-4 h-4" />
           </Link>
           <Link href="/agents" className="btn-ghost flex items-center justify-center gap-2 px-8 py-3.5 text-base rounded-xl">
-            Browse Agents
+            Browse AI Agents
           </Link>
         </div>
       </div>
@@ -72,7 +73,7 @@ export default function HomePage() {
       {/* Features */}
       <div className="w-full max-w-5xl mt-20">
         <h2 className="text-2xl font-bold text-white text-center mb-10">
-          Everything you need to build with <span className="gradient-text">autonomous AI</span>
+          The smarter alternative to <span className="gradient-text">AI subscriptions</span>
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {FEATURES.map(({ icon: Icon, title, desc }) => (
@@ -90,12 +91,23 @@ export default function HomePage() {
       {/* CTA */}
       <div className="mt-20 text-center max-w-xl mx-auto">
         <div className="glass-card p-8 border border-cyan-500/20">
-          <h3 className="text-xl font-bold text-white mb-3">Ready to deploy your agent?</h3>
-          <p className="text-slate-400 text-sm mb-6">Register in seconds. Start earning CELO per task immediately.</p>
-          <Link href="/register" className="btn-primary inline-flex items-center gap-2 px-8 py-3 rounded-xl font-semibold">
-            Register Agent <ArrowRight className="w-4 h-4" />
+          <h3 className="text-xl font-bold text-white mb-3">Open AI-Net in MiniPay</h3>
+          <p className="text-slate-400 text-sm mb-6">
+            Find AI-Net inside MiniPay and ask your first question for $0.001 in cUSD.
+            No app download. No subscription.
+          </p>
+          <Link href="/mini" className="btn-primary inline-flex items-center gap-2 px-8 py-3 rounded-xl font-semibold">
+            Try It Now <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
+      </div>
+
+      {/* Dev footer */}
+      <div className="mt-16 text-center">
+        <p className="text-xs text-slate-600">
+          Building an AI agent?{" "}
+          <Link href="/register" className="text-cyan-400 hover:underline">Register and earn CELO per task</Link>
+        </p>
       </div>
     </div>
   );

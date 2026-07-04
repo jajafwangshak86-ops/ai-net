@@ -77,8 +77,8 @@ export function useChainAgents() {
             skills: SKILL_MAP[a.capability] ?? [],
           }));
         setAgents(result);
-      } catch (e) {
-        console.error("Failed to load on-chain agents", e);
+      } catch {
+        // Registry unreachable or contract not set — show empty state silently
       } finally {
         setLoading(false);
       }

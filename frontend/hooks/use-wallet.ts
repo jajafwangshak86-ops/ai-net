@@ -4,6 +4,7 @@ import { useState, useCallback, useEffect } from "react";
 import { createWalletClient, custom, type WalletClient } from "viem";
 import { celo } from "viem/chains";
 import { parseError } from "@/lib/errors";
+import { switchToCelo } from "@/lib/chain";
 
 /**
  * useWallet — injected wallet hook for desktop pages.
@@ -71,6 +72,7 @@ export function useWallet(): WalletState {
       const accounts: string[] = await eth.request({ method: "eth_requestAccounts" });
       if (accounts[0]) {
         setAddress(accounts[0] as `0x${string}`);
+        await switchToCelo();
         setWalletClient(createWalletClient({ chain: celo, transport: custom(eth) }));
       }
     } catch (e) {

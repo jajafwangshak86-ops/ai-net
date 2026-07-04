@@ -30,12 +30,13 @@ export default function DashboardPage() {
   }, []);
 
   const totalSpent = history.reduce((s, t) => s + t.agentsHired.length * 0.001, 0);
+  const spentLabel = `$${totalSpent.toFixed(3)} cUSD`;
 
   const STATS = [
     { label: "Registered Agents", value: agentCount,                    sub: "live on-chain", icon: Users,      color: "text-cyan-400",   bg: "from-cyan-500/20 to-cyan-500/5",    border: "border-cyan-500/10"   },
     { label: "Total Tasks",       value: taskCount,                     sub: "completed",     icon: Zap,        color: "text-violet-400", bg: "from-violet-500/20 to-violet-500/5", border: "border-violet-500/10" },
     { label: "Your Sessions",     value: String(history.length),        sub: "this device",   icon: Activity,   color: "text-blue-400",   bg: "from-blue-500/20 to-blue-500/5",    border: "border-blue-500/10"   },
-    { label: "Your Spend",        value: `${totalSpent.toFixed(3)} CELO`,sub: "this device",  icon: TrendingUp, color: "text-green-400",  bg: "from-green-500/20 to-green-500/5",  border: "border-green-500/10"  },
+    { label: "Your Spend",        value: spentLabel,                   sub: "this device",   icon: TrendingUp, color: "text-green-400",  bg: "from-green-500/20 to-green-500/5",  border: "border-green-500/10"  },
   ];
 
   return (

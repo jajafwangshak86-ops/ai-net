@@ -1,41 +1,99 @@
 "use client";
 
-import { usePrivy, useWallets } from "@privy-io/react-auth";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
+import { createWalletClient, custom, type WalletClient } from "viem";
+import { celo } from "viem/chains";
+import { parseError } from "@/lib/errors";
+import { switchToCelo } from "@/lib/chain";
 
-interface WalletState {
+/**
+ * useWallet — injected wallet hook for desktop pages.
+ *
+ * Uses window.ethereum directly (MetaMask, Rabby, Coinbase Wallet, etc.)
+ * following the same pattern as useMiniPay. This avoids any dependency on
+ * Privy being configured, which is an optional enhancement.
+ *
+ * For MiniPay pages, use useMiniPay instead.
+ */
+
+export interface WalletState {
   connected: boolean;
-  address: string;
+  address: `0x${string}` | "";
   connecting: boolean;
   copied: boolean;
   smartAccount: boolean;
+  walletClient: WalletClient | null;
+  connectError: string;
   connect: () => Promise<void>;
   disconnect: () => void;
   copyAddress: () => void;
 }
 
 export function useWallet(): WalletState {
-  const { ready, authenticated, login, logout, user } = usePrivy();
-  const { wallets } = useWallets();
-  const [copied, setCopied] = useState(false);
+  const [address, setAddress]           = useState<`0x${string}` | "">("");
+  const [connecting, setConnecting]     = useState(false);
+  const [copied, setCopied]             = useState(false);
+  const [walletClient, setWalletClient] = useState<WalletClient | null>(null);
+  const [connectError, setConnectError] = useState("");
 
-  // Prefer smart wallet, fall back to embedded, then external
-  const activeWallet =
-    wallets.find(w => w.walletClientType === "privy" && w.connectorType === "embedded") ??
-    wallets.find(w => w.walletClientType === "metamask") ??
-    wallets[0];
+  // Auto-connect if wallet already authorised (e.g. page refresh)
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const eth = (window as any).ethereum;
+    if (!eth) return;
+    eth.request({ method: "eth_accounts" })
+      .then((accounts: string[]) => {
+        if (accounts[0]) {
+          setAddress(accounts[0] as `0x${string}`);
+          setWalletClient(createWalletClient({ chain: celo, transport: custom(eth) }));
+        }
+      })
+      .catch(() => {});
 
-  const address = activeWallet?.address ?? "";
-  const connected = authenticated && !!address;
-  const connecting = !ready;
-  // Privy embedded wallets are smart accounts when smartWallets.enabled = true
-  const smartAccount = activeWallet?.walletClientType === "privy";
+    // Keep address in sync when user switches account in wallet
+    const onAccountsChanged = (accounts: string[]) => {
+      setAddress((accounts[0] as `0x${string}`) ?? "");
+      if (!accounts[0]) setWalletClient(null);
+    };
+    // Reset wallet client when user switches network (forces switchToCelo on next connect)
+    const onChainChanged = () => {
+      setWalletClient(null);
+    };
+    eth.on?.("accountsChanged", onAccountsChanged);
+    eth.on?.("chainChanged", onChainChanged);
+    return () => {
+      eth.removeListener?.("accountsChanged", onAccountsChanged);
+      eth.removeListener?.("chainChanged", onChainChanged);
+    };
+  }, []);
 
   const connect = useCallback(async () => {
-    if (!authenticated) login();
-  }, [authenticated, login]);
+    if (typeof window === "undefined") return;
+    const eth = (window as any).ethereum;
+    if (!eth) {
+      setConnectError("No wallet detected. Open inside MiniPay or install MetaMask.");
+      return;
+    }
+    setConnecting(true);
+    setConnectError("");
+    try {
+      const accounts: string[] = await eth.request({ method: "eth_requestAccounts" });
+      if (accounts[0]) {
+        setAddress(accounts[0] as `0x${string}`);
+        await switchToCelo();
+        setWalletClient(createWalletClient({ chain: celo, transport: custom(eth) }));
+      }
+    } catch (e) {
+      setConnectError(parseError(e));
+    } finally {
+      setConnecting(false);
+    }
+  }, []);
 
-  const disconnect = useCallback(() => { logout(); }, [logout]);
+  const disconnect = useCallback(() => {
+    setAddress("");
+    setWalletClient(null);
+  }, []);
 
   const copyAddress = useCallback(() => {
     if (!address) return;
@@ -44,5 +102,16 @@ export function useWallet(): WalletState {
     setTimeout(() => setCopied(false), 2000);
   }, [address]);
 
-  return { connected, address, connecting, copied, smartAccount, connect, disconnect, copyAddress };
+  return {
+    connected: !!address,
+    address,
+    connecting,
+    copied,
+    smartAccount: false, // standard injected wallets are EOAs
+    walletClient,
+    connectError,
+    connect,
+    disconnect,
+    copyAddress,
+  };
 }

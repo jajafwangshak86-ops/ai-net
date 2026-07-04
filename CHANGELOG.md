@@ -1,5 +1,22 @@
 # Changelog
 
+## 2026-07-04 — Chain Switch, Error Handling & Polish
+
+- **feat**: `lib/chain.ts` — `switchToCelo()` utility; auto-adds Celo to wallet if needed
+- **fix**: Chain mismatch error — `switchToCelo()` called before every transaction
+  in `use-wallet`, `/mini`, `task-creator`, and `register` page
+- **fix**: `chainChanged` event listener in `use-wallet` — resets walletClient on
+  network switch so next tx always triggers chain check
+- **feat**: `lib/errors.ts` — `parseError()` maps raw RPC/viem errors to plain English
+  - user rejected, insufficient funds, wrong network, timeout, contract reverts
+  - truncates unknown errors at 120 chars
+- **fix**: `WalletConnect` — shows `connectError` inline with AlertCircle icon
+  (replaces `alert()`)
+- **fix**: Payments page — `celoscan.io` mainnet links (was alfajores testnet)
+- **fix**: Payments page — amounts show `0.0008 CELO` and `0.001 cUSD` (not ETH)
+- **fix**: Dashboard — "Your Spend" stat shows `$X.XXX cUSD` (not CELO)
+- **fix**: `use-chain-agents` — silent error handling on registry fetch failure
+
 ## 2026-07-03 — MiniPay Mini App
 
 - **feat**: `/mini` route — consumer-grade MiniPay entry point

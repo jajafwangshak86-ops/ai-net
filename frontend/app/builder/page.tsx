@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Wand2, Loader2, CheckCircle, AlertCircle, FileCode, ExternalLink } from "lucide-react";
 import { BACKEND_URL } from "@/lib/constants";
+import { parseError } from "@/lib/errors";
 
 interface BuildResult {
   success: boolean;
@@ -53,7 +54,7 @@ export default function BuilderPage() {
       setResult(await res.json());
     } catch (e: unknown) {
       clearInterval(ticker);
-      setError(e instanceof Error ? e.message : String(e));
+      setError(parseError(e));
     } finally {
       setLoading(false); setStage("");
     }

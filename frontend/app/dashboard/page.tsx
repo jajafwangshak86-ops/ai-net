@@ -7,13 +7,11 @@ import { Activity, TrendingUp, Users, Zap } from "lucide-react";
 import { useTaskHistory } from "@/hooks/use-task-history";
 import { useChainAgents } from "@/hooks/use-chain-agents";
 import { CONTRACTS } from "@/lib/constants";
+import { COORDINATOR_ABI, REGISTRY_ABI } from "@/lib/abis";
 import { createPublicClient, http } from "viem";
 import type { TaskRecord } from "@/hooks/use-tasks";
 
-const celoAlfajores = { id: 42220, name: "Celo Mainnet", nativeCurrency: { name: "Celo", symbol: "CELO", decimals: 18 }, rpcUrls: { default: { http: ["https://forno.celo.org"] } } } as const;
-
-const COORDINATOR_ABI = [{ name: "taskCount", type: "function", stateMutability: "view", inputs: [], outputs: [{ type: "uint256" }] }] as const;
-const REGISTRY_ABI    = [{ name: "totalAgents", type: "function", stateMutability: "view", inputs: [], outputs: [{ type: "uint256" }] }] as const;
+const celoMainnet = { id: 42220, name: "Celo Mainnet", nativeCurrency: { name: "Celo", symbol: "CELO", decimals: 18 }, rpcUrls: { default: { http: ["https://forno.celo.org"] } } } as const;
 
 export default function DashboardPage() {
   const { history, addTask } = useTaskHistory();
@@ -22,7 +20,7 @@ export default function DashboardPage() {
   const [agentCount, setAgentCount] = useState("—");
 
   useEffect(() => {
-    const client = createPublicClient({ chain: celoAlfajores, transport: http() });
+    const client = createPublicClient({ chain: celoMainnet, transport: http() });
     Promise.all([
       client.readContract({ address: CONTRACTS.TASK_COORDINATOR, abi: COORDINATOR_ABI, functionName: "taskCount" }),
       client.readContract({ address: CONTRACTS.AGENT_REGISTRY,   abi: REGISTRY_ABI,    functionName: "totalAgents" }),

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Send, Sparkles, Loader2, CheckCircle, ChevronDown, ChevronUp, AlertCircle, Zap, Wand2, RefreshCw } from "lucide-react";
 import { CAPABILITIES, CONTRACTS, BACKEND_URL } from "@/lib/constants";
+import { CREATE_TASK_ABI } from "@/lib/abis";
 import { encodeFunctionData, createWalletClient, custom } from "viem";
 import { celo } from "viem/chains";
 import { useWallet } from "@/hooks/use-wallet";
@@ -12,18 +13,13 @@ import { parseError } from "@/lib/errors";
 import { switchToCelo } from "@/lib/chain";
 
 const PIPELINE_LABELS: Record<string, string> = {
-  creating: "⛓️ Smart Account tx", research: "🔍 Research", risk: "⚠️ Risk",
-  coding: "💻 Coding", design: "🎨 Design", audit: "✅ Audit", report: "📄 Report",
+  creating: "Smart Account tx", research: "Research", risk: "Risk",
+  coding: "Coding", design: "Design", audit: "Audit", report: "Report",
 };
 const OUTPUT_LABELS: Record<string, string> = {
-  research: "🔍 Research", riskAnalysis: "⚠️ Risk Analysis",
-  coding: "💻 Code", design: "🎨 Design", audit: "✅ Audit", report: "📄 Final Report",
+  research: "Research", riskAnalysis: "Risk Analysis",
+  coding: "Code", design: "Design", audit: "Audit", report: "Final Report",
 };
-const CREATE_TASK_ABI = [{
-  name: "createTask", type: "function", stateMutability: "payable",
-  inputs: [{ name: "description", type: "string" }, { name: "duration", type: "uint256" }],
-  outputs: [{ name: "", type: "uint256" }],
-}] as const;
 
 interface Props { onTaskComplete?: (task: TaskRecord) => void; }
 

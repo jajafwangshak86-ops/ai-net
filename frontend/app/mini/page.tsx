@@ -10,6 +10,7 @@ import { encodeFunctionData, createWalletClient, custom, parseUnits } from "viem
 import { celo } from "viem/chains";
 import { useMiniPay } from "@/hooks/use-minipay";
 import { CONTRACTS, BACKEND_URL } from "@/lib/constants";
+import { CREATE_TASK_ABI, ERC20_TRANSFER_ABI } from "@/lib/abis";
 import { parseError } from "@/lib/errors";
 import { switchToCelo } from "@/lib/chain";
 
@@ -23,18 +24,6 @@ const TASK_PRICE_CUSD = parseUnits("0.001", 18);
 
 /** Task price in CELO wei (~0.0008 CELO ≈ $0.001) */
 const TASK_PRICE_CELO = BigInt("800000000000000");
-
-const CREATE_TASK_ABI = [{
-  name: "createTask", type: "function", stateMutability: "payable",
-  inputs: [{ name: "description", type: "string" }, { name: "duration", type: "uint256" }],
-  outputs: [{ name: "", type: "uint256" }],
-}] as const;
-
-const ERC20_TRANSFER_ABI = [{
-  name: "transfer", type: "function", stateMutability: "nonpayable",
-  inputs: [{ name: "to", type: "address" }, { name: "amount", type: "uint256" }],
-  outputs: [{ name: "", type: "bool" }],
-}] as const;
 
 const PIPELINE_LABELS: Record<string, string> = {
   creating: "Sending payment",

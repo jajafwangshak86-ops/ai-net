@@ -1,12 +1,13 @@
 {
   "name": "ai-net-backend",
   "version": "1.0.0",
-  "description": "GuildNet coordinator backend — orchestrates AI agents on-chain",
+  "description": "AI-Net coordinator backend — orchestrates AI agents on Celo",
   "main": "dist/server.js",
   "scripts": {
     "build": "tsc",
     "start": "node dist/server.js",
-    "dev": "ts-node-dev --respawn src/server.ts"
+    "dev": "ts-node-dev --respawn src/server.ts",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@scure/bip32": "1.4.0",

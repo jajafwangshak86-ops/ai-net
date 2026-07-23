@@ -4,19 +4,25 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { LayoutDashboard, Bot, ClipboardList, Wallet, Settings, Wand2, PlusCircle, ChevronLeft, ChevronRight, X } from "lucide-react";
+import {
+  LayoutDashboard, Bot, ClipboardList, Wallet, Settings,
+  Wand2, PlusCircle, ChevronLeft, ChevronRight, X,
+} from "lucide-react";
 
 const NAV = [
   { icon: LayoutDashboard, label: "Dashboard", href: "/dashboard" },
-  { icon: ClipboardList,   label: "Tasks",     href: "/tasks"     },
-  { icon: Bot,             label: "Agents",    href: "/agents"    },
-  { icon: Wand2,           label: "Builder",   href: "/builder"   },
-  { icon: PlusCircle,      label: "Register",  href: "/register"  },
-  { icon: Wallet,          label: "Payments",  href: "/payments"  },
-  { icon: Settings,        label: "Settings",  href: "/settings"  },
+  { icon: ClipboardList, label: "Tasks", href: "/tasks" },
+  { icon: Bot, label: "Agents", href: "/agents" },
+  { icon: Wand2, label: "Builder", href: "/builder" },
+  { icon: PlusCircle, label: "Register", href: "/register" },
+  { icon: Wallet, label: "Payments", href: "/payments" },
+  { icon: Settings, label: "Settings", href: "/settings" },
 ];
 
-interface Props { mobileOpen: boolean; onClose: () => void; }
+interface Props {
+  mobileOpen: boolean;
+  onClose: () => void;
+}
 
 export function Sidebar({ mobileOpen, onClose }: Props) {
   const [collapsed, setCollapsed] = useState(false);
@@ -34,31 +40,49 @@ export function Sidebar({ mobileOpen, onClose }: Props) {
             <p className="text-[11px] text-slate-500 mt-0.5">Celo Mainnet</p>
           </div>
         )}
-        <button onClick={onClose} className="ml-auto lg:hidden text-slate-500 hover:text-white p-1 rounded-lg hover:bg-white/5">
+        <button
+          onClick={onClose}
+          className="ml-auto lg:hidden text-slate-500 hover:text-white p-1 rounded-lg hover:bg-white/5"
+          aria-label="Close sidebar"
+        >
           <X className="w-4 h-4" />
         </button>
       </div>
 
-      <nav className="flex-1 p-2 space-y-0.5 overflow-y-auto">
+      <nav className="flex-1 p-2 space-y-0.5 overflow-y-auto" aria-label="Main navigation">
         {NAV.map(({ icon: Icon, label, href }) => {
           const active = pathname === href;
           return (
-            <Link key={href} href={href} onClick={onClose}
+            <Link
+              key={href}
+              href={href}
+              onClick={onClose}
+              aria-current={active ? "page" : undefined}
               className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-150 group ${
                 active
                   ? "bg-gradient-to-r from-cyan-500/15 to-violet-500/10 text-cyan-400 border border-cyan-500/20"
                   : "text-slate-400 hover:text-white hover:bg-white/[0.06]"
-              }`}>
-              <Icon style={{ width: 17, height: 17 }} className={`flex-shrink-0 ${active ? "text-cyan-400" : "group-hover:text-cyan-400 transition-colors"}`} />
+              }`}
+            >
+              <Icon
+                style={{ width: 17, height: 17 }}
+                className={`flex-shrink-0 ${active ? "text-cyan-400" : "group-hover:text-cyan-400 transition-colors"}`}
+                aria-hidden="true"
+              />
               {!collapsed && <span className="text-sm font-medium">{label}</span>}
-              {active && !collapsed && <div className="ml-auto w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />}
+              {active && !collapsed && (
+                <div className="ml-auto w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" aria-hidden="true" />
+              )}
             </Link>
           );
         })}
       </nav>
 
-      <button onClick={() => setCollapsed(!collapsed)}
-        className="hidden lg:flex items-center justify-center p-3.5 border-t border-white/[0.06] text-slate-600 hover:text-white transition-colors">
+      <button
+        onClick={() => setCollapsed(!collapsed)}
+        className="hidden lg:flex items-center justify-center p-3.5 border-t border-white/[0.06] text-slate-600 hover:text-white transition-colors"
+        aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+      >
         {collapsed ? <ChevronRight className="w-4 h-4" /> : <ChevronLeft className="w-4 h-4" />}
       </button>
     </div>
@@ -66,16 +90,21 @@ export function Sidebar({ mobileOpen, onClose }: Props) {
 
   return (
     <>
-      <aside className={`hidden lg:flex flex-col border-r border-white/[0.06] transition-all duration-300 ${collapsed ? "w-[60px]" : "w-56"}`}
-        style={{ background: "rgba(7,7,15,0.95)" }}>
+      <aside
+        className={`hidden lg:flex flex-col border-r border-white/[0.06] transition-all duration-300 ${collapsed ? "w-[60px]" : "w-56"}`}
+        style={{ background: "rgba(7,7,15,0.95)" }}
+        aria-label="Sidebar"
+      >
         {content}
       </aside>
 
       {mobileOpen && (
-        <div className="fixed inset-0 z-50 lg:hidden">
-          <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={onClose} />
-          <aside className="absolute left-0 top-0 h-full w-56 border-r border-white/[0.06] flex flex-col"
-            style={{ background: "rgba(7,7,15,0.98)" }}>
+        <div className="fixed inset-0 z-50 lg:hidden" role="dialog" aria-modal="true" aria-label="Mobile sidebar">
+          <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={onClose} aria-hidden="true" />
+          <aside
+            className="absolute left-0 top-0 h-full w-56 border-r border-white/[0.06] flex flex-col"
+            style={{ background: "rgba(7,7,15,0.98)" }}
+          >
             {content}
           </aside>
         </div>

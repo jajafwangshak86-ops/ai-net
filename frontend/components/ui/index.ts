@@ -6,3 +6,4 @@ export { Address }     from "./address";
 export { Divider }     from "./divider";
 export { StatCard }    from "./stat-card";
 export { Alert }       from "./alert";
+export { Skeleton, CardSkeleton, StatCardSkeleton, TableSkeleton } from "./skeleton";

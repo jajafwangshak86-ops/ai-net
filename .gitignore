@@ -1,15 +1,53 @@
-.env
+# ── Dependencies ───────────────────────────────────────────────────────────────
 node_modules/
+.pnp.*
+.yarn/
+
+# ── Environment ────────────────────────────────────────────────────────────────
+.env
+.env.local
+.env.*.local
+
+# ── Build outputs ──────────────────────────────────────────────────────────────
 dist/
+build/
+out/
+
+# ── Next.js ────────────────────────────────────────────────────────────────────
+frontend/.next/
+frontend/tsconfig.tsbuildinfo
+
+# ── Foundry ────────────────────────────────────────────────────────────────────
 contracts/out/
 contracts/cache/
+contracts/broadcast/
 contracts/.env
+contracts/lib/
+
+# ── Backend ────────────────────────────────────────────────────────────────────
 backend/dist/
 backend/node_modules/
-frontend/node_modules/
-frontend/.next/
-scripts/
 
-# temp
+# ── Frontend ───────────────────────────────────────────────────────────────────
+frontend/node_modules/
+
+# ── IDE / OS ───────────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ── Logs ───────────────────────────────────────────────────────────────────────
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ── Temporary ──────────────────────────────────────────────────────────────────
 *.sh.bak
 /tmp
+coverage/
+.nyc_output/

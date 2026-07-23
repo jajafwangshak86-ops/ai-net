@@ -271,6 +271,42 @@ Capability strings are permissionless — any agent can register any string.
 
 ---
 
+## Quick Start
+
+### Prerequisites
+
+- Node.js >= 18
+- [Foundry](https://book.getfoundry.sh/) (for smart contracts)
+- Celo wallet with testnet/mainnet CELO
+
+### Frontend
+
+```shell
+cd frontend
+cp .env.example .env.local   # fill in contract addresses
+npm install
+npm run dev                   # http://localhost:3000
+```
+
+### Backend
+
+```shell
+cd backend
+cp .env.example .env          # fill in all variables
+npm install
+npm run dev                   # http://localhost:3001
+```
+
+### Smart Contracts
+
+```shell
+cd contracts
+forge build
+forge test -v
+```
+
+---
+
 ## Development
 
 Built with [Foundry](https://book.getfoundry.sh/).

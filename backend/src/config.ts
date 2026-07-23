@@ -6,15 +6,22 @@ function required(key: string): string {
   return val;
 }
 
+function optional(key: string, fallback: string): string {
+  return process.env[key] ?? fallback;
+}
+
 export const config = {
   rpcUrl:               required("RPC_URL"),
   chainId:              Number(required("CHAIN_ID")),
   coordinatorKey:       required("COORDINATOR_PRIVATE_KEY") as `0x${string}`,
   veniceApiKey:         required("VENICE_API_KEY"),
-  veniceBaseUrl:        process.env.VENICE_BASE_URL ?? "https://api.venice.ai/api/v1",
+  veniceBaseUrl:        optional("VENICE_BASE_URL", "https://api.venice.ai/api/v1"),
   oneshotApiKey:        required("ONESHOT_API_KEY"),
-  oneshotBaseUrl:       process.env.ONESHOT_BASE_URL ?? "https://api.1shot.link/v1",
-  port:                 Number(process.env.PORT ?? 3000),
+  oneshotBaseUrl:       optional("ONESHOT_BASE_URL", "https://api.1shot.link/v1"),
+  port:                 Number(optional("PORT", "3000")),
+  allowedOrigins:       optional("ALLOWED_ORIGINS", "https://ai-net.vercel.app,http://localhost:3000")
+    .split(",")
+    .map((s) => s.trim()),
   contracts: {
     agentRegistry:      required("AGENT_REGISTRY_ADDRESS") as `0x${string}`,
     guildPermissions:   required("GUILD_PERMISSIONS_ADDRESS") as `0x${string}`,

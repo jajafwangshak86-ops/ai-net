@@ -2,7 +2,9 @@
 
 import { useState } from "react";
 import { Send, Sparkles, Loader2, CheckCircle, ChevronDown, ChevronUp, AlertCircle, Zap, Wand2, RefreshCw } from "lucide-react";
-import { CAPABILITIES, CONTRACTS, BACKEND_URL } from "@/lib/constants";
+import { CAPABILITIES, CONTRACTS, BACKEND_URL, CUSD_ADDRESS, TASK_PRICE_CELO, TASK_DURATION_SECONDS } from "@/lib/constants";
+import { CREATE_TASK_ABI } from "@/lib/abis";
+import { PIPELINE_LABELS, OUTPUT_LABELS } from "@/lib/types";
 import { encodeFunctionData, createWalletClient, custom } from "viem";
 import { celo } from "viem/chains";
 import { useWallet } from "@/hooks/use-wallet";
@@ -10,20 +12,6 @@ import { useMiniPay } from "@/hooks/use-minipay";
 import type { TaskRecord } from "@/hooks/use-tasks";
 import { parseError } from "@/lib/errors";
 import { switchToCelo } from "@/lib/chain";
-
-const PIPELINE_LABELS: Record<string, string> = {
-  creating: "⛓️ Smart Account tx", research: "🔍 Research", risk: "⚠️ Risk",
-  coding: "💻 Coding", design: "🎨 Design", audit: "✅ Audit", report: "📄 Report",
-};
-const OUTPUT_LABELS: Record<string, string> = {
-  research: "🔍 Research", riskAnalysis: "⚠️ Risk Analysis",
-  coding: "💻 Code", design: "🎨 Design", audit: "✅ Audit", report: "📄 Final Report",
-};
-const CREATE_TASK_ABI = [{
-  name: "createTask", type: "function", stateMutability: "payable",
-  inputs: [{ name: "description", type: "string" }, { name: "duration", type: "uint256" }],
-  outputs: [{ name: "", type: "uint256" }],
-}] as const;
 
 interface Props { onTaskComplete?: (task: TaskRecord) => void; }
 
@@ -109,9 +97,9 @@ export function TaskCreator({ onTaskComplete }: Props) {
         chain:   celo,
         account: txAddress,
         to:      CONTRACTS.TASK_COORDINATOR as `0x${string}`,
-        data:    encodeFunctionData({ abi: CREATE_TASK_ABI, functionName: "createTask", args: [description, BigInt(7 * 24 * 60 * 60)] }),
-        value:   BigInt("800000000000000"),
-        feeCurrency: "0x765DE816845861e75A25fCA122bb6898B8B1282a", // cUSD fee abstraction
+        data:    encodeFunctionData({ abi: CREATE_TASK_ABI, functionName: "createTask", args: [description, TASK_DURATION_SECONDS] }),
+        value:   TASK_PRICE_CELO,
+        feeCurrency: CUSD_ADDRESS,
       });
       setOnChainTx(txHash);
 

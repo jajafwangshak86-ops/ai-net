@@ -282,7 +282,9 @@ body {
 .text-balance { text-wrap: balance; }
 
 /* ── Utility 2 ── */
-.ring-accent { ring: 2px; ring-color: var(--accent-cyan); ring-offset: 2px; ring-offset-color: var(--bg-primary); }
+.ring-accent {
+  box-shadow: 0 0 0 2px var(--accent-cyan), 0 0 0 4px var(--bg-primary);
+}
 
 /* ── Utility 3 ── */
 .surface { background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 12px; }
@@ -318,7 +320,12 @@ body {
 .code-block { background:rgba(0,0,0,0.4); border:1px solid var(--border-subtle); border-radius:10px; padding:12px 16px; font-family:ui-monospace,monospace; font-size:12px; color:#94a3b8; overflow-x:auto; }
 
 /* ── Utility 14 ── */
-.avatar { border-radius:50%; overflow:hidden; flex-shrink:0; ring:2px; ring-color:var(--border-subtle); }
+.avatar {
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 2px var(--border-subtle);
+}
 
 /* ── Utility 15 ── */
 .list-item { display:flex; align-items:center; gap:12px; padding:12px; border-radius:10px; transition:background 0.15s ease; } .list-item:hover { background:rgba(255,255,255,0.03); }

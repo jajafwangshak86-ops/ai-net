@@ -311,6 +311,12 @@ app.post("/build", limiter, async (req: Request, res: Response, next: NextFuncti
   }
 });
 
+// ── 404 handler ──────────────────────────────────────────────────────────────
+
+app.use((_req: Request, res: Response) => {
+  res.status(404).json({ error: "Not found", path: _req.path });
+});
+
 // ── Error handler ─────────────────────────────────────────────────────────────
 
 app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {

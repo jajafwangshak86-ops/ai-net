@@ -6,43 +6,17 @@ import {
   Send, Loader2, CheckCircle, ChevronDown, ChevronUp,
   AlertCircle, Sparkles, Coins, Zap, Shield,
 } from "lucide-react";
-import { encodeFunctionData, createWalletClient, custom, parseUnits } from "viem";
+import { encodeFunctionData, createWalletClient, custom } from "viem";
 import { celo } from "viem/chains";
 import { useMiniPay } from "@/hooks/use-minipay";
-import { CONTRACTS, BACKEND_URL } from "@/lib/constants";
+import {
+  CONTRACTS, BACKEND_URL, CUSD_ADDRESS, TASK_PRICE_CELO, TASK_DURATION_SECONDS,
+} from "@/lib/constants";
 import { CREATE_TASK_ABI, ERC20_TRANSFER_ABI } from "@/lib/abis";
+import { PIPELINE_LABELS, OUTPUT_LABELS } from "@/lib/types";
+import type { TaskResult } from "@/lib/types";
 import { parseError } from "@/lib/errors";
 import { switchToCelo } from "@/lib/chain";
-
-// ── Constants ─────────────────────────────────────────────────────────────────
-
-/** cUSD on Celo Mainnet */
-const CUSD_ADDRESS = "0x765DE816845861e75A25fCA122bb6898B8B1282a" as const;
-
-/** Task price: 0.001 cUSD (18 decimals) */
-const TASK_PRICE_CUSD = parseUnits("0.001", 18);
-
-/** Task price in CELO wei (~0.0008 CELO ≈ $0.001) */
-const TASK_PRICE_CELO = BigInt("800000000000000");
-
-const PIPELINE_LABELS: Record<string, string> = {
-  creating: "Sending payment",
-  research: "Researching",
-  risk: "Analyzing risks",
-  coding: "Writing code",
-  design: "Designing",
-  audit: "Auditing",
-  report: "Writing report",
-};
-
-const OUTPUT_LABELS: Record<string, string> = {
-  research: "Research",
-  riskAnalysis: "Risk Analysis",
-  coding: "Code",
-  design: "Design",
-  audit: "Audit",
-  report: "Final Report",
-};
 
 const EXAMPLE_PROMPTS = [
   "What are the best mobile money opportunities in East Africa?",
@@ -51,18 +25,6 @@ const EXAMPLE_PROMPTS = [
   "What are the pros and cons of solar energy for homes?",
   "Compare the top 3 crypto wallets for beginners",
 ];
-
-interface TaskResult {
-  taskId: string;
-  agentsHired: string[];
-  txHashes: string[];
-  research?: string;
-  riskAnalysis?: string;
-  coding?: string;
-  design?: string;
-  audit?: string;
-  report?: string;
-}
 
 // ── Component ─────────────────────────────────────────────────────────────────
 
@@ -119,7 +81,7 @@ export default function MiniPage() {
         data: encodeFunctionData({
           abi: CREATE_TASK_ABI,
           functionName: "createTask",
-          args: [question, BigInt(7 * 24 * 60 * 60)],
+          args: [question, TASK_DURATION_SECONDS],
         }),
         value: TASK_PRICE_CELO,
         feeCurrency: CUSD_ADDRESS,

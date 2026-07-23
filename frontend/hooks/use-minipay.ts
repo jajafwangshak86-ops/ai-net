@@ -44,6 +44,21 @@ export function useMiniPay() {
         // MiniPay may reject if called too early — silently ignore,
         // the user can trigger connect() manually.
       });
+
+    // Keep address in sync when user switches account in wallet
+    const onAccountsChanged = (accounts: string[]) => {
+      setAddress((accounts[0] as `0x${string}`) ?? null);
+    };
+    // Reset wallet client when user switches network
+    const onChainChanged = () => {
+      setClient(null);
+    };
+    ethereum.on?.("accountsChanged", onAccountsChanged);
+    ethereum.on?.("chainChanged", onChainChanged);
+    return () => {
+      ethereum.removeListener?.("accountsChanged", onAccountsChanged);
+      ethereum.removeListener?.("chainChanged", onChainChanged);
+    };
   }, []);
 
   /**

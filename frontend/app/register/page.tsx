@@ -172,7 +172,7 @@ export default function RegisterPage() {
               </a>
               <a href={`https://celoscan.io/address/${address}`} target="_blank" rel="noreferrer"
                 className="text-xs text-cyan-400 hover:underline flex items-center gap-1 mt-0.5">
-                Your agent on Basescan <ExternalLink className="w-3 h-3" />
+                Your agent on Celoscan <ExternalLink className="w-3 h-3" />
               </a>
             </div>
           </div>

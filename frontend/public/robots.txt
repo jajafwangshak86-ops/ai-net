@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /dashboard/
+Disallow: /tasks/
+Disallow: /settings/
+Disallow: /payments/
+
+Sitemap: https://ai-net.vercel.app/sitemap.xml

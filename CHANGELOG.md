@@ -1,5 +1,46 @@
 # Changelog
 
+## 2026-07-23 — Professional Enhancement
+
+### Project Setup
+- **chore**: Added root `package.json` with workspace scripts for dev, build, lint, and test
+- **chore**: Added `.prettierrc` and `.editorconfig` for consistent formatting across codebase
+- **chore**: Updated `.gitignore` with comprehensive coverage patterns
+- **chore**: Added `backend/.env.example` with documented environment variables
+
+### Backend Security & Quality
+- **security(backend)**: Added CORS origin restrictions — only allows `ai-net.vercel.app` and `localhost:3000`
+- **security(backend)**: Added security headers (`X-Content-Type-Options`, `X-Frame-Options`, `X-XSS-Protection`, `Referrer-Policy`)
+- **feat(backend)**: Added input sanitization for all user inputs with length limits
+- **feat(backend)**: Added structured logging with request IDs and timing
+- **feat(backend)**: Added API version header (`X-API-Version: 1.1.0`)
+- **feat(backend)**: Added 404 handler for unknown routes
+- **feat(backend)**: Added `ALLOWED_ORIGINS` config option
+- **feat(backend)**: Improved health check with version, uptime, and timestamp
+- **feat(backend)**: Added separate rate limiters for task submission (5/min) vs general API (10/min)
+- **refactor(backend)**: Improved error handler with specific status codes for timeouts and reverts
+- **chore(backend)**: Enhanced TypeScript config with `noUnusedLocals`, `noUnusedParameters`, `sourceMap`
+- **chore(backend)**: Added `typecheck` script
+
+### Frontend Professional
+- **feat(frontend)**: Added `ErrorBoundary` component with recovery UI
+- **feat(frontend)**: Added `Skeleton`, `CardSkeleton`, `StatCardSkeleton`, and `TableSkeleton` components
+- **feat(frontend)**: Added `robots.txt` for SEO crawl directives
+- **feat(frontend)**: Added SEO metadata to dashboard and agents pages
+- **feat(frontend)**: Added ARIA attributes to sidebar, header, and app-shell for accessibility
+- **refactor(frontend)**: Extracted shared ABIs to `lib/abis.ts` — eliminates duplicate ABI definitions
+- **refactor(frontend)**: Added shared TypeScript types in `lib/types.ts` (TaskResult, PipelineStep, labels)
+- **refactor(frontend)**: Added MiniPay constants (CUSD address, task price, duration) to shared constants
+- **refactor(frontend)**: Updated mini page to use shared types and constants
+- **refactor(frontend)**: Updated task-creator to use shared types and constants
+- **fix(frontend)**: Fixed invalid CSS in `.ring-accent` and `.avatar` classes
+- **fix(frontend)**: Renamed dashboard `celoAlfajores` to `celoMainnet` (was misleading)
+- **refactor(frontend)**: Removed unused hooks (`use-agents`, `use-network`, `use-scroll`)
+- **refactor(frontend)**: Removed unused `@metamask/smart-accounts-kit` dependency
+
+### Security (Vercel)
+- **security(vercel)**: Added security headers (`X-Content-Type-Options`, `X-Frame-Options`, `Permissions-Policy`)
+
 ## 2026-07-04 — Chain Switch, Error Handling & Polish
 
 - **feat**: `lib/chain.ts` — `switchToCelo()` utility; auto-adds Celo to wallet if needed

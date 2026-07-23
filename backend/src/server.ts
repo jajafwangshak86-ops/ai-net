@@ -51,13 +51,15 @@ const taskLimiter = rateLimit({
 
 // ── Request logging middleware ─────────────────────────────────────────────────
 
-app.use((req: Request, _res: Response, next: NextFunction) => {
+app.use((req: Request, res: Response, next: NextFunction) => {
   const start = Date.now();
   const requestId = Math.random().toString(36).slice(2, 10);
   req.headers["x-request-id"] = requestId;
+  res.setHeader("X-Request-Id", requestId);
+  res.setHeader("X-API-Version", "1.1.0");
   console.log(`[${requestId}] ${req.method} ${req.path}`);
-  _res.on("finish", () => {
-    console.log(`[${requestId}] ${_res.statusCode} ${Date.now() - start}ms`);
+  res.on("finish", () => {
+    console.log(`[${requestId}] ${res.statusCode} ${Date.now() - start}ms`);
   });
   next();
 });

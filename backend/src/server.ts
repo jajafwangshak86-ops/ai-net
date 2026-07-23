@@ -11,9 +11,7 @@ const app = express();
 
 // ── Security middleware ────────────────────────────────────────────────────────
 
-const ALLOWED_ORIGINS = process.env.ALLOWED_ORIGINS
-  ? process.env.ALLOWED_ORIGINS.split(",").map((s) => s.trim())
-  : ["https://ai-net.vercel.app", "http://localhost:3000"];
+const ALLOWED_ORIGINS = config.allowedOrigins;
 
 app.use(
   cors({

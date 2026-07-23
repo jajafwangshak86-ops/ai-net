@@ -6,12 +6,12 @@
     "dev": "next dev --port 3000",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@celo/rainbowkit-celo": "^1.2.1",
     "@fashman_jaja/ai-net-sdk": "^1.0.0",
-    "@metamask/smart-accounts-kit": "^1.6.0",
     "@privy-io/react-auth": "^3.29.2",
     "clsx": "2.1.1",
     "lucide-react": "0.511.0",

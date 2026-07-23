@@ -1,13 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useMiniPay } from "@/hooks/use-minipay";
 import { CONTRACTS } from "@/lib/constants";
 import { createPublicClient, http } from "viem";
 import { celo } from "viem/chains";
 import { usePathname } from "next/navigation";
 
-const publicClient = createPublicClient({ chain: celo, transport: http("https://forno.celo.org") });
 const ABI = [{ name: "taskCount", type: "function", stateMutability: "view", inputs: [], outputs: [{ type: "uint256" }] }] as const;
 
 /**
@@ -19,10 +18,14 @@ export function MiniPayBanner() {
   const { isMiniPay, address } = useMiniPay();
   const [taskCount, setTaskCount] = useState<number | null>(null);
   const pathname = usePathname();
+  const clientRef = useRef<ReturnType<typeof createPublicClient> | null>(null);
 
   useEffect(() => {
     if (!CONTRACTS.TASK_COORDINATOR) return;
-    publicClient
+    if (!clientRef.current) {
+      clientRef.current = createPublicClient({ chain: celo, transport: http("https://forno.celo.org") });
+    }
+    clientRef.current
       .readContract({ address: CONTRACTS.TASK_COORDINATOR, abi: ABI, functionName: "taskCount" })
       .then(n => setTaskCount(Number(n)))
       .catch(() => {});
